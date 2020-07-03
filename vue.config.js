@@ -6,7 +6,6 @@ module.exports = {
     publicPath: './',
     filenameHashing: isDebug,
     productionSourceMap: isDebug,
-    lintOnSave: isDebug,
     // 需要合并的webpack配置
     configureWebpack: {
         // 文件打包拆解
@@ -43,19 +42,4 @@ module.exports = {
             },
         },
     },
-    // 多html配置
-    /*
-    pages: {
-        index: {
-            entry: 'src/main.js',
-            template: 'public/index.html',
-            filename: 'index.html'
-        },
-        map: {
-            entry: 'src/subpages/map.js',
-            template: 'public/map.html',
-            filename: 'map.html'
-        }
-    }
-    */
 };
