@@ -6,6 +6,16 @@ module.exports = {
     publicPath: './',
     filenameHashing: isDebug,
     productionSourceMap: isDebug,
+    css: {
+        loaderOptions: {
+            // 给 less-loader 传递选项
+            less: {
+                lessOptions: {
+                    javascriptEnabled: true,
+                },
+            },
+        },
+    },
     // 需要合并的webpack配置
     configureWebpack: {
         // 文件打包拆解
@@ -29,7 +39,7 @@ module.exports = {
             .end();
     },
     // 需要babel转义的第三方库
-    transpileDependencies: [/view-design/, /vue-echarts/, /resize-detector/],
+    transpileDependencies: [/view-design/],
     // 开发用代理服务配置
     devServer: {
         port: 9000,
