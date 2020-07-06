@@ -27,27 +27,20 @@ Vue.prototype.$Spin = Spin;
 Message.config({ duration: 3 });
 
 // 全局loading模态框
-Vue.prototype.$loading = (flag = false, html = 'Loading', { maskClosable, closeBack } = {}) => {
+Vue.prototype.$loading = function (
+    flag = false,
+    html = 'Loading',
+    { maskClosable, closeBack } = {}
+) {
     if (flag) {
         this.$Spin.show({
-            render: h => {
-                return h('div', [
-                    h('i-Icon', {
-                        class: 'loading',
-                        props: {
-                            type: 'ios-loading',
-                            size: 40,
-                        },
-                    }),
-                    h('div', {
-                        domProps: {
-                            innerHTML: html,
-                        },
-                        style: {
-                            fontSize: '20px',
-                        },
-                    }),
-                ]);
+            render() {
+                return (
+                    <div class="loading">
+                        <i-Icon type="ios-loading" size="40" />
+                        <div domPropsInnerHTML={html}></div>
+                    </div>
+                );
             },
         });
         // 遮罩关闭
@@ -56,12 +49,8 @@ Vue.prototype.$loading = (flag = false, html = 'Loading', { maskClosable, closeB
             if (el) {
                 el.onclick = () => {
                     this.$Spin.hide();
-                    // 关闭回调事件
-                    if (closeBack) {
-                        setTimeout(() => {
-                            closeBack();
-                        }, 0);
-                    }
+                    // 关闭时候的回调事件
+                    if (closeBack) setTimeout(closeBack, 0);
                 };
             }
         }

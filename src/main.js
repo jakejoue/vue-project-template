@@ -5,6 +5,6 @@ Vue.config.productionTip = false;
 
 import '@/plugins/iview.js';
 
-new Vue({
+global.rootVm = new Vue({
     render: h => h(App),
 }).$mount('#app');
