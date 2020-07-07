@@ -1,5 +1,5 @@
 <template>
-    <Default>
+    <Default isMain>
         Hello World
     </Default>
 </template>
