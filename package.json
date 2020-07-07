@@ -8,6 +8,7 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "core-js": "^3.6.5",
         "view-design": "^4.3.0",
         "vue": "^2.6.11",
@@ -47,6 +48,8 @@
         },
         "rules": {
             "prettier/prettier": "error",
+            "no-var": "error",
+            "prefer-const": "error",
             "no-console": "warn",
             "no-debugger": "warn"
         }

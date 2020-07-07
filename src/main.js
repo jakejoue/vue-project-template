@@ -3,8 +3,15 @@ import App from './App.vue';
 
 Vue.config.productionTip = false;
 
-import '@/plugins/iview.js';
+// 引入iview
+import './plugins/iview.js';
+// 引入axios
+import './plugins/axios.js';
 
-global.rootVm = new Vue({
+// 引用dialog插件
+import dialog from './plugins/dialog/';
+Vue.use(dialog);
+
+global.ROOTVM = new Vue({
     render: h => h(App),
 }).$mount('#app');
