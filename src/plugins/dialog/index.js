@@ -1,12 +1,8 @@
 import Vue from 'vue';
-import { v1 } from 'uuid';
 
 import Confirm from './confirm.vue';
 import Delete from './delete.vue';
 import { isString, isFunction, isArray, isObject } from 'util';
-
-// 相关属性字段名称声明
-const IDFIELD = '__modalId__';
 
 // 实例化后的对象容器
 const COMPS = new Map();
@@ -15,7 +11,7 @@ const COMPS = new Map();
  * vue实例化时需要附加的对象
  * @type {{store?: any, router?: any}}
  */
-let VueConfig = {};
+let VUE_CONFIG = {};
 
 /**
  * 搜索已经实例化的vue实例
@@ -26,14 +22,11 @@ function searchInstance(value) {
         return COMPS.get(value);
     }
     if (value instanceof Vue) {
-        let id;
-        // 向上溯源
-        do {
-            id = value[IDFIELD];
-            value = value.$parent;
-        } while (!id && value);
-
-        return COMPS.get(id);
+        return value.__constructor__
+            ? value
+            : value.$parent && value.$parent.__constructor__
+            ? value.$parent
+            : null;
     }
     if (isObject(value)) {
         const comps = [];
@@ -55,33 +48,21 @@ function searchInstance(value) {
 function newInstance(value, opt_options = {}) {
     // 如果是vue组件
     if (isObject(value) && !(value instanceof Vue)) {
-        let component;
         try {
             // 实例化vue组件
-            const Instance = new Vue({
-                ...VueConfig,
+            const component = new Vue({
+                ...VUE_CONFIG,
                 render(h) {
                     return h(value, { ...opt_options });
                 },
             });
-            component = Instance.$mount();
-            document.body.appendChild(component.$el);
+            component.__constructor__ = value;
+            component.$mount();
+
+            return component;
         } catch (error) {
-            component = null;
             // eslint-disable-next-line no-console
             console.error('dialog create error: ', value);
-        }
-
-        if (component) {
-            // 实例化完毕，赋值实例化id和类型
-            component.__constructor__ = value;
-            component[IDFIELD] = v1();
-
-            // 存入map对象进行管理
-            COMPS.set(component[IDFIELD], component);
-
-            // 返回对象
-            return component;
         }
     }
 }
@@ -92,12 +73,8 @@ function newInstance(value, opt_options = {}) {
  */
 function destroyInstance(value) {
     if (value instanceof Vue) {
-        // 从仓库中删除
-        if (COMPS.has(value[IDFIELD])) COMPS.delete(value[IDFIELD]);
-
         // 销毁vue对象
         try {
-            value.$el.parentNode.removeChild(value.$el);
             value.$destroy();
 
             return true;
@@ -213,13 +190,44 @@ const Dialog = {
 };
 
 export default {
+    /**
+     * 新建vue
+     * @param {Vue} vue vue对象
+     * @param {*} config 配置
+     */
     install(vue, config = {}) {
-        VueConfig = config;
+        VUE_CONFIG = config;
 
         // delete confirm 等静态界面
         vue.prototype.$Dialog = Dialog;
 
         // 动态界面管理
         vue.prototype.$DialogManager = DialogManager;
+
+        vue.mixin({
+            mounted() {
+                if (this.__constructor__) {
+                    COMPS.set(this._uid, this);
+
+                    if (!this.$el.parentNode) {
+                        document.body.appendChild(this.$el);
+                    }
+                }
+            },
+            beforeDestroy() {
+                const node = searchInstance(this);
+
+                if (node) {
+                    // 移除节点
+                    if (node.$el && node.$el.parentNode) {
+                        node.$el.parentNode.removeChild(node.$el);
+                    }
+                    // 从容器中移除
+                    if (COMPS.has(node._uid)) {
+                        COMPS.delete(node._uid);
+                    }
+                }
+            },
+        });
     },
 };
