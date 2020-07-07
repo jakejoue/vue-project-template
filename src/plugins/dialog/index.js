@@ -38,8 +38,8 @@ function searchInstance(value) {
     if (isObject(value)) {
         const comps = [];
         COMPS.forEach(comp => {
-            if (comp.constructor === value) {
-                comps.push(value);
+            if (comp.__constructor__ === value) {
+                comps.push(comp);
             }
         });
 
@@ -74,7 +74,7 @@ function newInstance(value, opt_options = {}) {
 
         if (component) {
             // 实例化完毕，赋值实例化id和类型
-            component.constructor = value;
+            component.__constructor__ = value;
             component[IDFIELD] = v1();
 
             // 存入map对象进行管理
