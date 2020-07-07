@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-import Confirm from './confirm.vue';
-import Delete from './delete.vue';
+import Confirm from './Confirm.vue';
+import Delete from './Delete.vue';
 import { isString, isFunction, isArray, isObject } from 'util';
 
 // 实例化后的对象容器
@@ -87,8 +87,8 @@ function destroyInstance(value) {
     return true;
 }
 
-// 浮云框管理器
-const DialogManager = {
+// 组件管理器
+const CompManager = {
     add() {
         /**
          * 添加多个浮云框的时候，只有一个变量，且变量为数组
@@ -169,20 +169,20 @@ const Dialog = {
         // 去除当前焦点元素
         document.querySelector('*:focus') && document.querySelector('*:focus').blur();
 
-        const modal = DialogManager.add(comp, { props }).$children[0];
+        const modal = CompManager.add(comp, { props }).$children[0];
 
         modal.$on('on-cancel', function () {
             if (isFunction(onCancel)) {
                 onCancel();
             }
-            DialogManager.remove(modal);
+            CompManager.remove(modal);
         });
 
         modal.$on('on-ok', function () {
             if (isFunction(onOk)) {
                 onOk();
             }
-            DialogManager.remove(modal);
+            CompManager.remove(modal);
         });
 
         return modal;
@@ -202,7 +202,7 @@ export default {
         vue.prototype.$Dialog = Dialog;
 
         // 动态界面管理
-        vue.prototype.$DialogManager = DialogManager;
+        vue.prototype.$CompManager = CompManager;
 
         vue.mixin({
             mounted() {

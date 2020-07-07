@@ -8,9 +8,9 @@ import './plugins/iview.js';
 // 引入axios
 import './plugins/axios.js';
 
-// 引用dialog插件
-import dialog from './plugins/dialog/';
-Vue.use(dialog);
+// 引用组件动态添加删除管理器
+import compManager from './plugins/comp-manager/';
+Vue.use(compManager);
 
 global.ROOTVM = new Vue({
     render: h => h(App),
