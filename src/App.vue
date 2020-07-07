@@ -1,12 +1,14 @@
 <template>
-    <div id="app">
+    <Default>
         Hello World
-    </div>
+    </Default>
 </template>
 
 <script>
+import Default from './layouts/Default';
+
 export default {
     name: 'App',
-    components: {},
+    components: { Default },
 };
 </script>
