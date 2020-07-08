@@ -22,22 +22,24 @@ export default {
 
 <style lang="less">
 #header {
-    background-color: #fff;
+    height: 60px;
     padding: 10px 60px;
+    background-color: #fff;
+
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
 
     // logo样式
     #logo {
-        display: inline-block;
         font-size: 1.3rem;
         font-weight: 600;
         color: #2c3e50;
-        position: relative;
 
         img {
-            vertical-align: middle;
             margin-right: 6px;
-            width: 40px;
             height: 40px;
+            vertical-align: middle;
         }
     }
 }

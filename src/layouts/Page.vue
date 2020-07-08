@@ -20,7 +20,6 @@ export default {
     #header {
         position: fixed;
         top: 0;
-        width: 100%;
         box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
         transition: background-color 0.3s ease-in-out;
     }
