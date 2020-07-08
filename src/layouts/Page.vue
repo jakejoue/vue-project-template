@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Header from './Header';
+import Header from './includes/Header';
 
 export default {
     components: { Header },
