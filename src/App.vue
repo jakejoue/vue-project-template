@@ -1,14 +1,9 @@
 <template>
-    <Default isMain>
-        Hello World
-    </Default>
+    <router-view />
 </template>
 
 <script>
-import Default from './layouts/Default';
-
 export default {
     name: 'App',
-    components: { Default },
 };
 </script>

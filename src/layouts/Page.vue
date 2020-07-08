@@ -1,24 +1,28 @@
 <template>
-    <Default>
-        <i-Content :style="{ padding: '0 50px' }">
-            <i-Breadcrumb :style="{ margin: '20px 0' }">
-                <i-BreadcrumbItem>Home</i-BreadcrumbItem>
-                <i-BreadcrumbItem>Components</i-BreadcrumbItem>
-                <i-BreadcrumbItem>Layout</i-BreadcrumbItem>
-            </i-Breadcrumb>
-            <i-Card>
-                <div style="min-height: 200px;">
-                    <slot />
-                </div>
-            </i-Card>
-        </i-Content>
-    </Default>
+    <div id="page">
+        <Header />
+        <router-view />
+    </div>
 </template>
 
 <script>
-import Default from './Default';
+import Header from './Header';
 
 export default {
-    components: { Default },
+    components: { Header },
 };
 </script>
+
+<style lang="less">
+#page {
+    padding-top: 61px;
+
+    #header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+        transition: background-color 0.3s ease-in-out;
+    }
+}
+</style>
