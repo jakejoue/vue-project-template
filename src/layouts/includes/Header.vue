@@ -1,7 +1,7 @@
 <template>
     <header id="header">
         <router-link to="/" id="logo">
-            <img src="@/assets/img/logo.png" alt="vue logo" />
+            <img v-if="isPage" src="@/assets/img/logo.png" alt="vue logo" />
             <span>{{ name }}</span>
         </router-link>
         <slot />
@@ -12,6 +12,7 @@
 import packageJson from '@/../package.json';
 
 export default {
+    props: { isPage: Boolean },
     data() {
         return {
             name: packageJson.name,
@@ -32,7 +33,7 @@ export default {
 
     // logo样式
     #logo {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: #2c3e50;
 

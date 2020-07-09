@@ -31,24 +31,36 @@ export function hasOwnProperty(obj, key) {
 }
 
 /**
- * 过滤排序
- * @param {Array.<Object>} base 源数组
- * @param {Array.<String>} parm 排序数组
+ * 过滤并排序
+ * @param {Array.<Object>} src 源数组
+ * @param {Array.<String>} sortArray 排序数组
  * @param {String} key 对应的排序字段
+ * @example
+ * const src = [{id:'name2'}, {id:'name1'}, {name:'tom'}];
+ * const sortArray = ['name1', 'name2'];
+ *
+ * const retArray = filterSort(src, sortArray, 'id');
+ * // retArray = [{id:'name1'}, {id:'name2'}];
  */
-export function filterSort(base, parm = [], key = 'id') {
-    if (typeOf(base) === 'array' && base.length) {
-        return base
-            .filter(c => parm.includes(c[key]))
-            .sort((pre, next) => parm.indexOf(pre[key]) - parm.indexOf(next[key]));
+export function filterSort(src, sortArray = [], key = 'id') {
+    if (typeOf(src) === 'array' && src.length) {
+        return src
+            .filter(c => sortArray.includes(c[key]))
+            .sort((pre, next) => sortArray.indexOf(pre[key]) - sortArray.indexOf(next[key]));
     }
     return [];
 }
 
 /**
- * 对象深层合并
+ * 对象深层合并，数组简单的进行indexOf存在处理，不在
  * @param {Object} def
  * @param {Object} obj
+ * @example
+ * const def = {a: {b: 1}};
+ * const obj = {a: {c: 2}};
+ *
+ * const dest = merge2Obj(def, obj);
+ * // dest = {a: {b: 1, c: 2}}
  */
 export function merge2Obj(def, obj) {
     if (!obj) {
@@ -58,20 +70,23 @@ export function merge2Obj(def, obj) {
     }
 
     for (const i in obj) {
-        // if its an object
+        // 如果是个对象
         if (obj[i] && obj[i].constructor == Object) {
             def[i] = merge2Obj(def[i], obj[i]);
         }
-        // if its an array.
+        // 如果是个数组
         else if (obj[i] && obj[i] instanceof Array) {
-            // if def its not an Array
+            // 如果def中当前属性不是个数组，不做处理
             if (def[i] && !(def[i] instanceof Array)) {
                 continue;
             }
-            // if def array do not exist
-            else if (!def[i]) def[i] = [];
+            // 如果def中不存在当前数组，简单复制
+            else if (!def[i]) {
+                def[i] = [...obj[i]];
+                continue;
+            }
 
-            // simple copy
+            // 简单判断重复
             for (let x = 0; x < obj[i].length; x++) {
                 const idxObj = obj[i][x];
                 if (def[i].indexOf(idxObj) === -1) {
@@ -96,37 +111,39 @@ export function mergeObjs(...rest) {
 
 /**
  * 补全对象配置
- * @param {Object} config 原对象
+ * @param {Object} src 原对象
  * @param {Object} templateObj 模板对象
  */
-export function mergeConfig(config, templateObj) {
+export function fixObj(src, templateObj) {
     // 非Object对象，返回deepCopy
     if (typeOf(templateObj) !== 'object') {
-        return deepCopy(config);
+        return deepCopy(src);
     }
+    // 补全不存在的值
     for (const key of Object.keys(templateObj)) {
-        if (!hasOwnProperty(config, key)) {
-            config[key] = templateObj[key];
+        if (!hasOwnProperty(src, key)) {
+            src[key] = deepCopy(templateObj[key]);
         }
     }
-    for (const key of Object.keys(config)) {
+    // 删除非模板规定的配置项
+    for (const key of Object.keys(src)) {
         if (!hasOwnProperty(templateObj, key)) {
-            delete config[key];
+            delete src[key];
         }
     }
-    return config;
+    return src;
 }
 
 /**
- * 对象深赋值
+ * 对象深复制
  * @param {*} data 要拷贝的对象
- * @param {Object} opt_options 可选配置项
- * @param {Array.<Function>} opt_options.valueProcessors 自定义对象赋值方法
- * @param {Array.<Function>} opt_options.keyProcessors 自定义对象键赋值方法
- * @param {Array.<String>} opt_options.ignores 不用拷贝的对象
+ * @param {Object} optOptions 可选配置项
+ * @param {Array.<Function>} optOptions.valueProcessors 自定义对象赋值方法
+ * @param {Array.<Function>} optOptions.keyProcessors 自定义对象键赋值方法
+ * @param {Array.<String>} optOptions.ignores 不用拷贝的对象
  */
-export function deepCopy(data, opt_options = {}) {
-    const { valueProcessors = [], keyProcessors = [], ignores = [] } = opt_options;
+export function deepCopy(data, optOptions = {}) {
+    const { valueProcessors = [], keyProcessors = [], ignores = [] } = optOptions;
 
     const t = typeOf(data);
     let o;
@@ -210,4 +227,41 @@ export function JSONParse(json) {
         }
     }
     return json;
+}
+
+/**
+ * 继承获取属性对象的属性值
+ *
+ * @param {Object} dest 目标对象
+ * @param {Array<?Object>} sources 获取的属性的对象
+ */
+export function extend(dest, ...sources) {
+    for (const src of sources) {
+        for (const k in src) {
+            dest[k] = src[k];
+        }
+    }
+    return dest;
+}
+
+/**
+ * 从源对象中挑选指定的属性并返回新的对象
+ *
+ * @param {Object} src 源对象
+ * @param {Array<string>} properties 被挑选的属性数组
+ * @returns {Object}
+ * @example
+ * const foo = { name: 'Charlie', age: 10 };
+ * const justName = pick(foo, ['name']);
+ * // justName = { name: 'Charlie' }
+ */
+export function pick(src, properties) {
+    const result = {};
+    for (let i = 0; i < properties.length; i++) {
+        const k = properties[i];
+        if (k in src) {
+            result[k] = src[k];
+        }
+    }
+    return result;
 }

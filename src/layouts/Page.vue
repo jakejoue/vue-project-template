@@ -1,15 +1,21 @@
 <template>
     <div id="page">
-        <Header />
+        <Header isPage><Nav /></Header>
         <router-view />
     </div>
 </template>
 
 <script>
+import Nav from './includes/Nav';
 import Header from './includes/Header';
 
 export default {
-    components: { Header },
+    components: { Nav, Header },
+    data() {
+        return {
+            menus: [],
+        };
+    },
 };
 </script>
 

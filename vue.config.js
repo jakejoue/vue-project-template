@@ -24,7 +24,7 @@ module.exports = {
         plugins: [
             // 定义部分全局变量，打包时候会被替换
             new webpack.DefinePlugin({
-                env_isDebug: isDebug,
+                envIsDebug: isDebug,
             }),
         ],
     },

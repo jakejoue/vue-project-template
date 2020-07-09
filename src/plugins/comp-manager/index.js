@@ -43,9 +43,9 @@ function searchInstance(value) {
 /**
  * 实例化vue组件
  * @param {Object} value vue组件
- * @param {*} opt_options 相关配置信息
+ * @param {*} optOptions 相关配置信息
  */
-function newInstance(value, opt_options = {}) {
+function newInstance(value, optOptions = {}) {
     // 如果是vue组件
     if (isObject(value) && !(value instanceof Vue)) {
         try {
@@ -53,7 +53,7 @@ function newInstance(value, opt_options = {}) {
             const component = new Vue({
                 ...VUE_CONFIG,
                 render(h) {
-                    return h(value, { ...opt_options });
+                    return h(value, { ...optOptions });
                 },
             });
             component.__constructor__ = value;

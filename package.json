@@ -2,6 +2,10 @@
     "name": "vue-project-template",
     "version": "0.1.0",
     "private": true,
+    "author": {
+        "name": "JakeJoue",
+        "url": "https://github.com/jakejoue"
+    },
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
@@ -29,30 +33,6 @@
         "sass": "^1.26.9",
         "sass-loader": "^8.0.2",
         "vue-template-compiler": "^2.6.11"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "eslint:recommended",
-            "prettier"
-        ],
-        "plugins": [
-            "prettier"
-        ],
-        "parserOptions": {
-            "parser": "babel-eslint"
-        },
-        "rules": {
-            "prettier/prettier": "error",
-            "no-var": "error",
-            "prefer-const": "error",
-            "no-console": "warn",
-            "no-debugger": "warn"
-        }
     },
     "browserslist": [
         "> 1%",
