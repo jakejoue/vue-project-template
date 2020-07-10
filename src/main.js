@@ -15,7 +15,7 @@ import router from './router/';
 import compManager from './plugins/comp-manager/';
 Vue.use(compManager, { router });
 
-global.ROOTVM = new Vue({
+new Vue({
     router,
     render: h => h(App),
 }).$mount('#app');

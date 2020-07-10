@@ -1,7 +1,7 @@
 <template>
-    <header id="header">
+    <header id="header" :class="{ fixed }">
         <router-link to="/" id="logo">
-            <img v-if="isPage" src="@/assets/img/logo.png" alt="vue logo" />
+            <img v-if="fixed" src="@/assets/img/logo.png" alt="vue logo" />
             <span>{{ name }}</span>
         </router-link>
         <slot />
@@ -12,7 +12,7 @@
 import packageJson from '@/../package.json';
 
 export default {
-    props: { isPage: Boolean },
+    props: { fixed: Boolean },
     data() {
         return {
             name: packageJson.name,
@@ -42,6 +42,14 @@ export default {
             height: 40px;
             vertical-align: middle;
         }
+    }
+
+    // fixed下的样式
+    &.fixed {
+        position: fixed;
+        top: 0;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+        transition: background-color 0.3s ease-in-out;
     }
 }
 </style>

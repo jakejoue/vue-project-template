@@ -1,7 +1,12 @@
 <template>
     <div id="page">
-        <Header isPage><Nav /></Header>
-        <router-view />
+        <Header fixed><Nav :navs="navs" /></Header>
+        <aside id="sidebar">
+            <li v-for="i in 100" :key="i">{{ i }}</li>
+        </aside>
+        <main id="main">
+            <router-view class="page" />
+        </main>
     </div>
 </template>
 
@@ -11,23 +16,36 @@ import Header from './includes/Header';
 
 export default {
     components: { Nav, Header },
+    inject: ['CONFIG'],
     data() {
         return {
-            menus: [],
+            navs: this.CONFIG.get('navs'),
         };
     },
 };
 </script>
 
 <style lang="less">
-#page {
-    padding-top: 61px;
+@top-height: 61px;
+@sidebar-width: 20rem;
 
-    #header {
+#page {
+    #sidebar {
+        font-size: 15px;
+        background-color: #fff;
+        width: @sidebar-width;
         position: fixed;
-        top: 0;
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
-        transition: background-color 0.3s ease-in-out;
+        top: @top-height;
+        left: 0;
+        bottom: 0;
+        box-sizing: border-box;
+        border-right: 1px solid #eaecef;
+        overflow-y: auto;
+    }
+
+    #main {
+        padding-top: @top-height;
+        padding-left: @sidebar-width;
     }
 }
 </style>

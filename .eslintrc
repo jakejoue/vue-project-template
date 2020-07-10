@@ -3,14 +3,8 @@
     "env": {
         "node": true
     },
-    "extends": [
-        "plugin:vue/essential",
-        "eslint:recommended",
-        "prettier"
-    ],
-    "plugins": [
-        "prettier"
-    ],
+    "extends": ["plugin:vue/essential", "eslint:recommended", "prettier"],
+    "plugins": ["prettier"],
     "parserOptions": {
         "parser": "babel-eslint"
     },
@@ -22,9 +16,5 @@
         "no-console": "warn",
         "no-debugger": "warn"
     },
-    "globals": {
-        "envIsDebug": "readonly",
-        "ROOTVM": "readonly",
-        "CONFIG": "readonly"
-    }
+    "globals": {}
 }

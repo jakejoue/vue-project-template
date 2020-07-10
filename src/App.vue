@@ -5,65 +5,35 @@
 </template>
 
 <script>
-import { initHttpUtil, request } from '@/utils/http';
+import initApplication from '@/utils/application';
 
 export default {
     name: 'App',
     data() {
         return {
-            isInited: true,
+            isInited: false,
+            ConfigMap: new Map(),
+        };
+    },
+    provide() {
+        return {
+            CONFIG: this.ConfigMap,
         };
     },
     created() {
-        this.initOutConifg().then(CONFIG => {
-            initHttpUtil(CONFIG);
+        this.$loading(true, '读取配置中......');
 
-            global.CONFIG = CONFIG;
-        });
-    },
-    methods: {
-        async initConfig() {},
-        /**
-         * 初始化外部配置
-         */
-        async initOutConifg() {
-            const self = this;
-            // 读取配置的方法
-            const readConfig = async function (path = '') {
-                return self.$axios
-                    .get('./config/application' + path + '.js')
-                    .then(({ data }) =>
-                        eval(
-                            `(function() {var module = {exports:{}}; ${data}; return module.exports;})()`
-                        )
-                    );
-            };
-
-            // 基础配置
-            const baseConfig = await readConfig();
-
-            // 激活的配置项
-            const { active } = baseConfig;
-            // 其他配置项的配置
-            let otherConfig = {};
-
-            // 如果是开发模式
-            if (envIsDebug) {
-                otherConfig = await readConfig('.dev');
-            } else if (active) {
-                otherConfig = await readConfig('.' + active);
-            }
-
-            // return
-            return { ...baseConfig, ...otherConfig };
-        },
-        /**
-         * 初始化服务器配置
-         * todo: 请根据需求实现
-         */
-        async initServerConfig() {
-            return request('port');
-        },
+        initApplication()
+            .then(config => {
+                // 更新配置
+                Object.keys(config).forEach(key => {
+                    this.ConfigMap.set(key, config[key]);
+                });
+            })
+            .finally(() => {
+                this.isInited = true;
+                this.$loading(false);
+            });
     },
 };
 </script>

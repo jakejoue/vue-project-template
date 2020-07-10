@@ -10,7 +10,7 @@ module.exports = {
         { text: 'API参考', to: '/api' },
         {
             text: '应用示例',
-            children: [{ text: '地图', to: './map' }],
+            children: [{ text: '地图', to: '/map' }],
         },
         {
             text: '相关技术',
