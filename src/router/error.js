@@ -6,6 +6,7 @@ import ErrorLayout from '../layouts/Error';
  * 传递一个code，这里是个偷懒的写法（请根据需求定制错误界面）
  */
 export default {
+    name: '错误界面',
     path: '/:code',
     component: ErrorLayout,
     beforeEnter: (to, from, next) => {

@@ -2,7 +2,7 @@
     <div id="page">
         <Header fixed><Nav :navs="navs" /></Header>
         <aside id="sidebar">
-            <li v-for="i in 100" :key="i">{{ i }}</li>
+            <Nav :navs="navs" is-side-bar />
         </aside>
         <main id="main">
             <router-view class="page" />
@@ -27,25 +27,34 @@ export default {
 
 <style lang="less">
 @top-height: 61px;
-@sidebar-width: 20rem;
+@sidebar-width: 280px;
 
 #page {
     #sidebar {
-        font-size: 15px;
-        background-color: #fff;
-        width: @sidebar-width;
         position: fixed;
         top: @top-height;
         left: 0;
         bottom: 0;
-        box-sizing: border-box;
         border-right: 1px solid #eaecef;
+
+        box-sizing: content-box;
+        width: @sidebar-width;
+        padding: 35px 0px 60px 20px;
+
+        font-size: 15px;
         overflow-y: auto;
     }
 
     #main {
+        padding: 0 60px 30px;
         padding-top: @top-height;
-        padding-left: @sidebar-width;
+
+        .page {
+            padding: 35px 0;
+            padding-left: 50px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
     }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <nav id="nav">
-        <i-Menu mode="horizontal" :active-name="activeName">
+    <nav class="nav" :class="[mode]">
+        <i-Menu :mode="mode" :active-name="activeName" width="auto">
             <template v-for="(menu, i) in navs">
                 <!-- if 存在子目录 -->
                 <i-Submenu v-if="menu.children" :key="i" :name="i">
@@ -65,8 +65,11 @@ const LinkComponent = {
 
 export default {
     components: { LinkComponent },
-    props: { navs: Array },
+    props: { navs: Array, isSideBar: Boolean },
     computed: {
+        mode() {
+            return this.isSideBar ? 'vertical' : 'horizontal';
+        },
         activeName() {
             return this.$route.path;
         },
@@ -75,28 +78,44 @@ export default {
 </script>
 
 <style lang="less">
-#nav {
-    flex: 1;
+.nav {
+    // 横向布局
+    &.horizontal {
+        flex: 1;
 
-    display: inline-flex;
-    justify-content: flex-end;
+        display: inline-flex;
+        justify-content: flex-end;
 
-    .ivu-menu-horizontal {
-        height: 40px;
-        line-height: 40px;
+        .ivu-menu-horizontal {
+            height: 40px;
+            line-height: 40px;
 
-        & > .ivu-menu-item,
-        & > .ivu-menu-submenu {
-            padding: 0 0.6em;
+            & > .ivu-menu-item,
+            & > .ivu-menu-submenu {
+                padding: 0 0.6em;
 
-            i.ivu-icon {
-                margin-right: 0;
+                i.ivu-icon {
+                    margin-right: 0;
+                }
+            }
+
+            &.ivu-menu-light:after {
+                display: none;
+                height: 0;
             }
         }
+    }
 
-        &.ivu-menu-light:after {
-            display: none;
-            height: 0px;
+    &.vertical {
+        .ivu-menu-vertical {
+            .ivu-menu-item-active:after {
+                display: none;
+            }
+
+            &.ivu-menu-light:after {
+                display: none;
+                width: 0;
+            }
         }
     }
 }

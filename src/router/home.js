@@ -11,7 +11,7 @@ export default {
     children: [
         // 注册主页
         {
-            name: 'main',
+            name: '主页',
             path: '',
             component: Main,
         },

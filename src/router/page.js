@@ -10,15 +10,13 @@ export default {
     path: '/',
     component: Page,
     children: [
-        // 注册一个guide界面
         {
-            name: 'guide',
+            name: '指南',
             path: 'guide',
             component: Guide,
         },
-        // Api界面
         {
-            name: 'api',
+            name: 'api参考',
             path: 'api',
             component: Api,
         },
