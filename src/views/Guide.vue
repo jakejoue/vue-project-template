@@ -1,12 +1,13 @@
 <template>
     <main>
-        <p v-for="i in 100" :key="i">{{ i }}</p>
+        <StartMd />
     </main>
 </template>
 
 <script>
+import StartMd from './guides/start.md';
+
 export default {
-    inject: ['CONFIG'],
-    mounted() {},
+    components: { StartMd },
 };
 </script>

@@ -18,6 +18,23 @@ module.exports = {
     },
     // 需要合并的webpack配置
     configureWebpack: {
+        // 添加新的loader
+        module: {
+            rules: [
+                { test: /\.cur$/, use: 'file-loader' },
+                {
+                    test: /\.md$/,
+                    use: [
+                        {
+                            loader: 'vue-loader',
+                        },
+                        {
+                            loader: require.resolve('./packages/markdown-loader'),
+                        },
+                    ],
+                },
+            ],
+        },
         // 文件打包拆解
         optimization: {},
         // 其他插件
@@ -27,16 +44,6 @@ module.exports = {
                 envIsDebug: isDebug,
             }),
         ],
-    },
-    // 链式修改webpack配置
-    chainWebpack: config => {
-        // cur文件 Loader
-        config.module
-            .rule('cur')
-            .test(/\.cur$/)
-            .use('file-loader')
-            .loader('file-loader')
-            .end();
     },
     // 需要babel转义的第三方库
     transpileDependencies: [/view-design/],

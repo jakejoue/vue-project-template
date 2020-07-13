@@ -57,4 +57,10 @@ export default {
         }
     }
 }
+
+@media screen and (max-width: 1300px) {
+    #page #main .page {
+        margin-left: @sidebar-width + 10px;
+    }
+}
 </style>
