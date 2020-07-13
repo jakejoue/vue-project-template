@@ -1,13 +1,7 @@
 <template>
-    <main>
-        <StartMd />
-    </main>
+    <main></main>
 </template>
 
 <script>
-import StartMd from './guides/start.md';
-
-export default {
-    components: { StartMd },
-};
+export default {};
 </script>
