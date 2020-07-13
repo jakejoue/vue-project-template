@@ -1,10 +1,9 @@
 <template>
-    <nav id="nav">
-        <i-Menu mode="horizontal" :active-name="activeName">
-            <template v-for="(menu, i) in navs">
+    <nav id="aside">
+        <i-Menu mode="vertical" :active-name="activeName" width="auto">
+            <template v-for="(menu, i) in asides">
                 <!-- if 存在子目录 -->
-                <i-Submenu v-if="menu.children" :key="i" :name="i">
-                    <template slot="title">{{ menu.text }}</template>
+                <i-MenuGroup v-if="menu.children" :title="menu.text" :key="i">
                     <!-- loop 节点 -->
                     <template v-for="(cmenu, j) in menu.children">
                         <!-- if 存在分组 -->
@@ -18,7 +17,7 @@
                         <!-- else 不存在分组 -->
                         <LinkComponent v-else :key="i + '-' + j" :option="cmenu" />
                     </template>
-                </i-Submenu>
+                </i-MenuGroup>
                 <!-- else 不存在子目录 -->
                 <LinkComponent v-else :key="i" :option="menu" />
             </template>
@@ -65,38 +64,34 @@ const LinkComponent = {
 
 export default {
     components: { LinkComponent },
-    props: { navs: Array },
+    props: { asides: Array },
     computed: {
         activeName() {
-            return this.$route.path;
+            return '';
         },
     },
 };
 </script>
 
 <style lang="less">
-#nav {
-    flex: 1;
-
-    display: inline-flex;
-    justify-content: flex-end;
-
-    .ivu-menu-horizontal {
-        height: 40px;
-        line-height: 40px;
-
-        & > .ivu-menu-item,
-        & > .ivu-menu-submenu {
-            padding: 0 0.6em;
-
-            i.ivu-icon {
-                margin-right: 0;
-            }
+#aside {
+    .ivu-menu-vertical {
+        .ivu-menu-item-active:after {
+            display: none;
         }
 
         &.ivu-menu-light:after {
             display: none;
-            height: 0;
+            width: 0;
+        }
+
+        .ivu-menu-item-group {
+            &-title {
+                color: inherit;
+            }
+            & > ul {
+                padding-left: 1.3em !important;
+            }
         }
     }
 }

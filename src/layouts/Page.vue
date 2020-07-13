@@ -2,7 +2,7 @@
     <div id="page">
         <Header fixed><Nav :navs="navs" /></Header>
         <aside id="sidebar">
-            <Nav :navs="navs" is-side-bar />
+            <Aside :asides="asides" />
         </aside>
         <main id="main">
             <router-view class="page" />
@@ -12,15 +12,23 @@
 
 <script>
 import Nav from './includes/Nav';
+import Aside from './includes/Aside';
 import Header from './includes/Header';
 
 export default {
-    components: { Nav, Header },
+    components: { Nav, Aside, Header },
     inject: ['CONFIG'],
     data() {
         return {
             navs: this.CONFIG.get('navs'),
         };
+    },
+    computed: {
+        // 侧边导航
+        asides() {
+            const navKey = this.$route.meta.navKey;
+            return this.CONFIG.get(navKey);
+        },
     },
 };
 </script>

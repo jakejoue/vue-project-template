@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <li v-for="i in 100" :key="i">{{ 100 - i }}</li>
-    </div>
+    <div></div>
 </template>
 
 <script>

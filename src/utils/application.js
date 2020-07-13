@@ -39,7 +39,7 @@ export default async function () {
 
     /**
      * @todo
-     * 在此处添加自定义配置读取（如地图应用读取后台配置参数等）
+     * 在此处添加自定义配置读取（如地图应用读取后台配置参数，业务系统读取相关路由接口初始化数据等）
      */
     const serveConfig = {};
 

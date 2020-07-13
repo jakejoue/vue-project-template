@@ -13,11 +13,13 @@ export default {
         {
             name: '指南',
             path: 'guide',
+            meta: { navKey: 'guides' },
             component: Guide,
         },
         {
             name: 'api参考',
             path: 'api',
+            meta: { navKey: 'apis' },
             component: Api,
         },
     ],
