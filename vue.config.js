@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 
 const isDebug = process.env.NODE_ENV !== 'production';
@@ -29,6 +30,14 @@ module.exports = {
     },
     // 需要合并的webpack配置
     configureWebpack: {
+        resolve: {
+            // 别名
+            alias: {
+                '~': path.join(__dirname, '/node_modules/'),
+                '@': path.join(__dirname, '/src'),
+                packages: path.join(__dirname, '/packages'),
+            },
+        },
         // 添加新的loader
         module: {
             rules: [

@@ -15,10 +15,6 @@
     </main>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="less">
 .main-wrapper {
     padding: 40px 40px 30px;

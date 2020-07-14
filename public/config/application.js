@@ -7,7 +7,7 @@ module.exports = {
     // 导航栏目录
     navs: [
         { text: '指南', to: '/guide' },
-        // { text: 'API参考', to: '/api' },
+        { text: 'API参考', to: '/api' },
         {
             text: '应用示例',
             children: [{ text: '地图', to: '/map' }],
@@ -53,9 +53,6 @@ module.exports = {
         {
             text: '开始',
             children: [
-                {
-                    text: '基本用法',
-                },
                 {
                     text: '目录结构',
                 },

@@ -36,63 +36,14 @@ export default {
 
 #page {
     #main {
-        padding: 0 60px 30px;
         padding-top: @top-height;
+        padding-left: @sidebar-width + 20px;
 
         .page {
-            padding: 35px 0;
-            padding-left: 50px;
+            padding: 15px 30px 100px;
             max-width: @content-width;
             margin: 0 auto;
         }
-
-        pre {
-            background-color: #f8f8f8;
-            border-radius: 2px;
-
-            code {
-                position: relative;
-                overflow-x: auto;
-                display: block;
-                padding: 1.2em 1.4em;
-                line-height: 1.6em;
-
-                &::before {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    color: #ccc;
-                    text-align: right;
-                    font-size: 0.9em;
-                    padding: 5px 10px 0;
-                    line-height: 15px;
-                    height: 15px;
-                    font-weight: 600;
-                }
-
-                &.language-vue::before {
-                    content: 'VUE';
-                }
-                &.language-html::before {
-                    content: 'HTML';
-                }
-                &.language-js::before {
-                    content: 'JS';
-                }
-                &.language-css::before {
-                    content: 'CSS';
-                }
-                &.language-less::before {
-                    content: 'LESS';
-                }
-            }
-        }
-    }
-}
-
-@media screen and (max-width: @mq-narrow) {
-    #page #main .page {
-        margin-left: @sidebar-width + 10px;
     }
 }
 </style>

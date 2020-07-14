@@ -23,6 +23,8 @@ export default {
 
 <style lang="less">
 #header {
+    z-index: @zindex-header;
+
     height: @header-height;
     padding: 10px 60px;
     background-color: #fff;

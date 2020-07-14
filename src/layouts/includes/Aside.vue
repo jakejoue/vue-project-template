@@ -57,6 +57,8 @@ export default {
 @top-height: @header-height + 1px;
 
 #aside {
+    z-index: @zindex-aside;
+
     position: fixed;
     top: @top-height;
     left: 0;

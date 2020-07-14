@@ -5,6 +5,8 @@ Vue.config.productionTip = false;
 
 // 代码高亮
 import 'prismjs/themes/prism.css';
+// markdown页面样式
+import '@/assets/styles/markdown.less';
 
 // 引入iview
 import './plugins/iview.js';
@@ -15,7 +17,7 @@ import './plugins/axios.js';
 import router from './router/';
 
 // 引用组件动态添加删除管理器
-import compManager from './plugins/comp-manager/';
+import compManager from './plugins/comp-manager';
 Vue.use(compManager, { router });
 
 new Vue({
