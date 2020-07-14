@@ -13,6 +13,17 @@ module.exports = {
                 lessOptions: {
                     javascriptEnabled: true,
                 },
+                // less编译附加变量文件
+                prependData(loaderContext) {
+                    const { resourcePath } = loaderContext;
+
+                    // 只对vue文件添加custom.less变量文件
+                    if (/(.vue)$/gi.test(resourcePath)) {
+                        return "@import '@/assets/styles/custom.less';";
+                    } else {
+                        return '';
+                    }
+                },
             },
         },
     },

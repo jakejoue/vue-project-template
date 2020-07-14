@@ -54,11 +54,26 @@ export default {
 
 <style lang="less">
 @prefixCls: side-link;
+@top-height: @header-height + 1px;
 
 #aside {
+    position: fixed;
+    top: @top-height;
+    left: 0;
+    bottom: 0;
+    border-right: 1px solid #eaecef;
+
+    box-sizing: content-box;
+    width: @sidebar-width;
+    padding: 35px 0px 60px 20px;
+
+    font-size: 15px;
+    overflow-y: auto;
+
     & > ul {
         list-style: none;
     }
+
     .@{prefixCls}-group {
         & > ul {
             list-style: none;

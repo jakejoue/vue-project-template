@@ -76,14 +76,16 @@ export default {
 
 <style lang="less">
 #nav {
+    @nav-height: @header-height - 20px;
+
     flex: 1;
 
     display: inline-flex;
     justify-content: flex-end;
 
     .ivu-menu-horizontal {
-        height: 40px;
-        line-height: 40px;
+        height: @nav-height;
+        line-height: @nav-height;
 
         & > .ivu-menu-item,
         & > .ivu-menu-submenu {

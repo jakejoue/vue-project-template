@@ -1,9 +1,7 @@
 <template>
     <div id="page">
         <Header fixed><Nav :navs="navs" /></Header>
-        <aside id="sidebar">
-            <Aside :asides="asides" />
-        </aside>
+        <Aside :asides="asides" />
         <main id="main">
             <router-view class="page" />
         </main>
@@ -34,25 +32,9 @@ export default {
 </script>
 
 <style lang="less">
-@top-height: 61px;
-@sidebar-width: 280px;
+@top-height: @header-height + 1px;
 
 #page {
-    #sidebar {
-        position: fixed;
-        top: @top-height;
-        left: 0;
-        bottom: 0;
-        border-right: 1px solid #eaecef;
-
-        box-sizing: content-box;
-        width: @sidebar-width;
-        padding: 35px 0px 60px 20px;
-
-        font-size: 15px;
-        overflow-y: auto;
-    }
-
     #main {
         padding: 0 60px 30px;
         padding-top: @top-height;
@@ -60,7 +42,7 @@ export default {
         .page {
             padding: 35px 0;
             padding-left: 50px;
-            max-width: 750px;
+            max-width: @content-width;
             margin: 0 auto;
         }
 
@@ -108,7 +90,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: @mq-narrow) {
     #page #main .page {
         margin-left: @sidebar-width + 10px;
     }

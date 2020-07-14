@@ -23,7 +23,7 @@ export default {
 
 <style lang="less">
 #header {
-    height: 60px;
+    height: @header-height;
     padding: 10px 60px;
     background-color: #fff;
 
@@ -39,7 +39,7 @@ export default {
 
         img {
             margin-right: 6px;
-            height: 40px;
+            height: @header-height - 20px;
             vertical-align: middle;
         }
     }
