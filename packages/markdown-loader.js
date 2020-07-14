@@ -22,6 +22,7 @@ renderer.link = (href, title, text) => {
 
 function markdownLoader(val) {
     const html = marked(val, {
+        headerIds: false,
         renderer: renderer,
         highlight(code, lang) {
             return Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup);
