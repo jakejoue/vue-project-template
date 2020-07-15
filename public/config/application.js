@@ -7,7 +7,7 @@ module.exports = {
     // 导航栏目录
     navs: [
         { text: '指南', to: '/guide' },
-        { text: 'API参考', to: '/api' },
+        // { text: 'API参考', to: '/api' },
         {
             text: '应用示例',
             children: [{ text: '地图', to: '/map' }],
@@ -59,6 +59,9 @@ module.exports = {
                 {
                     text: '默认配置',
                 },
+                {
+                    text: '运行流程',
+                },
             ],
         },
         {
@@ -79,10 +82,10 @@ module.exports = {
                     ],
                 },
                 {
-                    text: '内部集成插件',
+                    text: 'vue插件开发',
                 },
                 {
-                    text: 'vue相关技术使用实践',
+                    text: '相关技术使用实践',
                 },
             ],
         },

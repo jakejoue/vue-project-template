@@ -1,25 +1,21 @@
 <template>
     <nav id="aside">
         <i-Menu mode="vertical" width="auto">
-            <template v-for="(menu, i) in asides">
-                <SideLink :option="menu" :key="i" />
-            </template>
+            <SideLinks v-for="(menu, i) in asides" :option="menu" :key="i" />
         </i-Menu>
     </nav>
 </template>
 
 <script>
-const prefixCls = 'side-link';
-
-// 声明一个匿名组件
+// 单个link
 const SideLink = {
     functional: true,
-    props: ['option', 'name'],
+    props: ['option', 'depth'],
     render(h, context) {
-        const { to, text, prefix, suffix, children } = context.props.option;
+        const { to, text, prefix, suffix } = context.props.option;
+        const depth = context.props.depth;
 
-        // 有限取router链接做为name，否则取key
-        const name = String(to || context.props.name || context.data.key);
+        const name = String(to || text);
 
         let config = {};
         // 如果是个外部的url，附加相关参数
@@ -36,25 +32,8 @@ const SideLink = {
             };
         }
 
-        if (children) {
-            return (
-                <li class={prefixCls + '-group'}>
-                    <i-MenuItem name={name} to={to} {...config}>
-                        {prefix ? <i-Icon type={prefix} /> : ''}
-                        {text}
-                        {suffix ? <i-Icon type={suffix} /> : ''}
-                    </i-MenuItem>
-                    <ul>
-                        {children.map(cOption => (
-                            <SideLink option={cOption} />
-                        ))}
-                    </ul>
-                </li>
-            );
-        }
-
         return (
-            <i-MenuItem name={name} to={to} {...config}>
+            <i-MenuItem name={name} style={{ 'padding-left': depth + 'em' }} to={to} {...config}>
                 {prefix ? <i-Icon type={prefix} /> : ''}
                 {text}
                 {suffix ? <i-Icon type={suffix} /> : ''}
@@ -62,9 +41,34 @@ const SideLink = {
         );
     },
 };
+// 多个link
+const SideLinks = {
+    functional: true,
+    components: { SideLink },
+    props: ['option', 'depth'],
+    render(h, context) {
+        const { option, depth = 1 } = context.props;
+        const { children } = option;
+
+        if (children) {
+            return (
+                <li>
+                    <SideLink option={option} depth={depth} />
+                    <ul style={{ 'list-style': 'none' }}>
+                        {children.map(cOption => (
+                            <SideLinks option={cOption} depth={depth + 1} />
+                        ))}
+                    </ul>
+                </li>
+            );
+        }
+
+        return <SideLink option={context.props.option} depth={depth} />;
+    },
+};
 
 export default {
-    components: { SideLink },
+    components: { SideLinks },
     props: { asides: Array },
 };
 </script>
@@ -89,22 +93,10 @@ export default {
     font-size: 15px;
     overflow-y: auto;
 
-    .@{prefixCls}-group {
-        & > ul {
-            list-style: none;
-
-            padding-left: 1em;
-        }
-    }
-
     .ivu-menu-vertical {
+        &.ivu-menu-light:after,
         .ivu-menu-item-active:after {
             display: none;
-        }
-
-        &.ivu-menu-light:after {
-            display: none;
-            width: 0;
         }
     }
 }

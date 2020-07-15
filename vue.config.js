@@ -10,16 +10,22 @@ module.exports = {
     css: {
         loaderOptions: {
             css: {
-                url(url) {
-                    // 以./images开头的文件不被url处理
-                    if (/^(.\/images\/)/.test(url)) {
+                /**
+                 * css-loader会对css文件内部url('***')进行require处理，
+                 * 这会要求这个文件路径必须正确且存在，
+                 * 这不便我们书写less等样式文件的时候使用外部静态资源，
+                 * 这里配置的是，类似以下url('./images/***')路径
+                 * 即外部(public/images/...)目录，不做相关处理
+                 */
+                url(url, filePath) {
+                    if (/^(.\/images\/)/.test(url) && !/node_modules/.test(filePath)) {
                         return false;
                     }
                     return true;
                 },
             },
-            // 给 less-loader 传递选项
             less: {
+                // 允许在less中使用js方法，iview的Less样式编译需要相关参数
                 lessOptions: {
                     javascriptEnabled: true,
                 },
@@ -51,6 +57,7 @@ module.exports = {
         module: {
             rules: [
                 { test: /\.cur$/, use: 'file-loader' },
+                // 新增md文件支持
                 {
                     test: /\.md$/,
                     use: [
