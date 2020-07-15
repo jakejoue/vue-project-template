@@ -9,6 +9,15 @@ module.exports = {
     productionSourceMap: isDebug,
     css: {
         loaderOptions: {
+            css: {
+                url(url) {
+                    // 以./images开头的文件不被url处理
+                    if (/^(.\/images\/)/.test(url)) {
+                        return false;
+                    }
+                    return true;
+                },
+            },
             // 给 less-loader 传递选项
             less: {
                 lessOptions: {
