@@ -1,14 +1,16 @@
 <template>
-    <div id="page">
+    <div id="page-layout">
         <Header fixed><Nav :navs="navs" /></Header>
-        <Aside :asides="asides" />
-        <main id="main">
-            <router-view class="page" />
+        <Aside :menus="menus" :active-name="activeName" @on-select="onSelect" />
+        <main class="page">
+            <router-view class="content" />
         </main>
     </div>
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
+
 import Nav from './includes/Nav';
 import Aside from './includes/Aside';
 import Header from './includes/Header';
@@ -19,29 +21,30 @@ export default {
     data() {
         return {
             navs: this.CONFIG.get('navs'),
+            activeName: '',
         };
     },
     computed: {
         // 侧边导航
-        asides() {
+        menus() {
             const navKey = this.$route.meta.navKey;
             return this.CONFIG.get(navKey);
         },
     },
     mounted() {
-        window.addEventListener('scroll', this.onScroll);
+        window.addEventListener('scroll', this.scrollHandler);
+
+        // 选中第一个
+        this.$nextTick(() => {
+            this.activeName = document.querySelector('.headerlink').innerHTML;
+        });
     },
     methods: {
-        onScroll() {
-            setTimeout(() => {
-                this.setActiveHash();
-            }, 300);
-        },
+        scrollHandler: debounce(function () {
+            this.setActiveHash();
+        }, 100),
         setActiveHash() {
-            // const sidebarLinks = [].slice.call(
-            //     document.querySelectorAll('#aside .ivu-menu-item')
-            // );
-            const anchors = document.querySelectorAll('#main .headerlink');
+            const anchors = document.querySelectorAll('.headerlink');
 
             const scrollTop = Math.max(
                 window.pageYOffset,
@@ -55,16 +58,20 @@ export default {
 
                 const isActive =
                     (i === 0 && scrollTop === 0) ||
-                    (scrollTop >= anchor.offsetTop - 100 &&
-                        (!nextAnchor || scrollTop < nextAnchor.offsetTop + 50));
+                    (scrollTop >= anchor.offsetTop + 10 &&
+                        (!nextAnchor || scrollTop < nextAnchor.offsetTop - 10));
                 if (isActive) {
-                    console.log(anchor);
+                    this.activeName = anchor.innerHTML;
                 }
             }
         },
+        onSelect(val) {
+            const anchor = document.getElementById(val);
+            anchor && anchor.scrollIntoView();
+        },
     },
     beforeDestroy() {
-        window.removeEventListener('scroll', this.onScroll);
+        window.removeEventListener('scroll', this.scrollHandler);
     },
 };
 </script>
@@ -72,13 +79,12 @@ export default {
 <style lang="less">
 @top-height: @header-height + 1px;
 
-#page {
-    #main {
-        padding-top: @top-height;
+#page-layout {
+    .page {
         padding-left: @sidebar-width + 20px;
 
-        .page {
-            padding: 15px 30px 100px;
+        .content {
+            padding: 2rem 2.5rem;
             max-width: @content-width;
             margin: 0 auto;
         }

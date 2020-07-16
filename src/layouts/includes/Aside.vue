@@ -1,7 +1,12 @@
 <template>
     <nav id="aside">
-        <i-Menu mode="vertical" width="auto">
-            <SideLinks v-for="(menu, i) in asides" :option="menu" :key="i" />
+        <i-Menu
+            mode="vertical"
+            width="auto"
+            :active-name="activeName"
+            @on-select="onSelect"
+        >
+            <SideLinks v-for="(menu, i) in menus" :option="menu" :key="i" />
         </i-Menu>
     </nav>
 </template>
@@ -74,7 +79,12 @@ const SideLinks = {
 
 export default {
     components: { SideLinks },
-    props: { asides: Array },
+    props: { menus: Array, activeName: String },
+    methods: {
+        onSelect(val) {
+            this.$emit('on-select', val);
+        },
+    },
 };
 </script>
 

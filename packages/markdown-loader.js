@@ -11,11 +11,22 @@ Prism.languages.vue = Prism.languages.extend('html', {
 
 // 自定义render
 class CustomRender extends marked.Renderer {
+    heading(text, level, raw, slugger) {
+        let html = super.heading(text, level, raw, slugger);
+        if (level <= 2) {
+            html = html.replace(
+                '<h' + level,
+                '<h' + level + ' class="headerlink"'
+            );
+        }
+        return html;
+    }
+
     link(href, title, text) {
         const html = super.link(href, title, text);
 
         if (/^(http|https):\/\//.test(href)) {
-            return html.replace(/^<a /, '<a target="_blank" rel="noopener" ');
+            return html.replace(/^<a/, '<a target="_blank" rel="noopener"');
         } else {
             return html;
         }
@@ -39,22 +50,10 @@ class CustomRender extends marked.Renderer {
         }
         return super.code(code, language, isEscaped);
     }
-
-    heading(text, level, raw, slugger) {
-        let html = super.heading(text, level, raw, slugger);
-        if (level <= 2) {
-            html = html.replace(
-                '<h' + level,
-                '<h' + level + ' class="headerlink"'
-            );
-        }
-        return html;
-    }
 }
 
 function markdownLoader(val) {
     const html = marked(val, {
-        headerIds: false,
         renderer: new CustomRender(),
         highlight(code, lang) {
             return Prism.highlight(

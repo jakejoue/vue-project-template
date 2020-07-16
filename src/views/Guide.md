@@ -15,8 +15,6 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 
 ## 目录结构
 
----
-
 -   目录结构如下：
 
 ```
@@ -104,8 +102,6 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 
 ## 默认配置
 
----
-
 > 默认配置集成了一些开发常用的配置，主要包括以下部分：
 >
 > -   打包后的文件采用相对路径并关闭文件后缀名 hash
@@ -119,8 +115,6 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 ```
 
 ## 运行流程
-
----
 
 ### webpack 运行逻辑：
 
@@ -178,8 +172,6 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 ## 命名规范
 
----
-
 -   **_文件夹_**
 
     -   对外输出的文件夹（内部存在一个 index.js 文件）统一采用以下命名，例：_`theme-api`_
@@ -209,8 +201,6 @@ vue-project-template 内部集成了 `eslint + prettier`
 > _形成良好的命名规范，可以让代码更加具有辨识性，更好维护，还有很多好处等待各位自己发掘_
 
 ## 组件定义和使用
-
----
 
 -   **组件的编写顺序**
 
@@ -286,8 +276,6 @@ vue-project-template 内部集成了 `eslint + prettier`
 ```
 
 ## 编程风格
-
----
 
 > 推荐使用 [es6](https://es6.ruanyifeng.com/) 语法进行开发  
 > 项目内置的语法检测为 [eslint-plugin-vue](https://eslint.vuejs.org/rules/) 默认推荐  
@@ -472,10 +460,6 @@ async function asyncReadFile() {
 [import]: src/plugins/axios.js
 ```
 
----
-
 ## 相关技术使用实践
-
----
 
 # 杂项

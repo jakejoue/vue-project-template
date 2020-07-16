@@ -1,5 +1,5 @@
 <template>
-    <div id="error">
+    <div id="error-layout">
         <router-view />
         <h1>{{ code }}</h1>
         <blockquote>这是个{{ code }}错误！</blockquote>
