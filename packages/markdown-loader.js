@@ -27,14 +27,28 @@ class CustomRender extends marked.Renderer {
         if (NeedLoadCode.test(code)) {
             const codePath = code.replace(NeedLoadCode, '').trim();
             try {
-                code = fs.readFileSync(path.resolve(__dirname, '..', codePath), {
-                    encoding: 'utf-8',
-                });
+                code = fs.readFileSync(
+                    path.resolve(__dirname, '..', codePath),
+                    {
+                        encoding: 'utf-8',
+                    }
+                );
             } catch (error) {
                 // todo: 文件加载失败
             }
         }
         return super.code(code, language, isEscaped);
+    }
+
+    heading(text, level, raw, slugger) {
+        let html = super.heading(text, level, raw, slugger);
+        if (level <= 2) {
+            html = html.replace(
+                '<h' + level,
+                '<h' + level + ' class="headerlink"'
+            );
+        }
+        return html;
     }
 }
 
@@ -43,7 +57,10 @@ function markdownLoader(val) {
         headerIds: false,
         renderer: new CustomRender(),
         highlight(code, lang) {
-            return Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup);
+            return Prism.highlight(
+                code,
+                Prism.languages[lang] || Prism.languages.markup
+            );
         },
     });
     return `<template><div class="markdown-page">${html}</div></template>`;

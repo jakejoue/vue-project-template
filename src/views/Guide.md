@@ -288,3 +288,194 @@ vue-project-template 内部集成了 `eslint + prettier`
 ## 编程风格
 
 ---
+
+> 推荐使用 [es6](https://es6.ruanyifeng.com/) 语法进行开发  
+> 项目内置的语法检测为 [eslint-plugin-vue](https://eslint.vuejs.org/rules/) 默认推荐  
+> 并新增了以下规定：
+>
+> -   禁用`var`声明变量，变量声明请用`let`或`const`
+> -   js 变量命名规定必须为`camelcase`风格，`active_index`这种声明方法将不被允许
+> -   `debugger，console`会进行警告，调试完模块后请删除相关 debugger 代码
+
+**_下面简单对常用的 es6 语法进行讲解：_**
+
+-   变量声明和赋值
+
+```js
+/**
+ * var 作用域为 function 内部
+ * let，const 为块级作用域 {}
+ *
+ * let，const提供更严格的作用域控制，所以禁用var
+ */
+
+// 对象析构赋值，指定默认值
+let { foo, bar, car = 'ccc' } = { foo: 'aaa', bar: 'bbb' };
+foo; // "aaa"
+bar; // "bbb"
+less; // "ccc"
+
+// 同样可以作用于数组
+let [x, y = 'b'] = ['a']; // x='a', y='b'
+let [x, y = 'b'] = ['a', undefined]; // x='a', y='b'
+
+/********** rest关键字 ... **********/
+
+// 替代之前的arguments，且更加强大
+let [head, ...tail] = [1, 2, 3, 4];
+head; // 1
+tail; // [2, 3, 4]
+
+// 也可以作用于对象
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+x; // 1
+y; // 2
+z; // { a: 3, b: 4 }
+```
+
+-   **对象的使用**
+
+```js
+// 对象的简易赋值
+const foo = 'bar';
+const baz = { foo };
+baz; // { foo: "bar" }
+
+// 等同于
+const baz = { foo: foo };
+
+// 函数也是个对象，也支持以下写法
+const o = {
+    method() {
+        return 'Hello!';
+    },
+};
+
+// 等同于
+
+const o = {
+    method: function () {
+        return 'Hello!';
+    },
+};
+```
+
+-   **函数的使用**
+
+```js
+// 使用析构赋值
+function log(x, y = 'World') {
+    console.log(x, y);
+}
+
+log('Hello'); // Hello World
+log('Hello', 'China'); // Hello China
+log('Hello', ''); // Hello
+
+// 使用rest获取值，注意rest只能放在最后，否则会报错
+function push(array, ...items) {
+    items.forEach(function (item) {
+        array.push(item);
+        console.log(item);
+    });
+}
+
+var a = [];
+push(a, 1, 2, 3);
+
+// 箭头函数（推荐掌握），更多的请查看 es6 语法规则
+
+// 正常函数写法
+[1, 2, 3].map(function (x) {
+    return x * x;
+});
+
+// 箭头函数写法
+[1, 2, 3].map(x => x * x);
+```
+
+-   **类的声明和使用**
+
+```js
+// 传统方法
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+Point.prototype.toString = function () {
+    return '(' + this.x + ', ' + this.y + ')';
+};
+
+// es6写法
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    toString() {
+        return '(' + this.x + ', ' + this.y + ')';
+    }
+}
+
+// 类的继承
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y); // 调用父类的constructor(x, y)
+        this.color = color;
+    }
+
+    toString() {
+        return this.color + ' ' + super.toString(); // 调用父类的toString()
+    }
+}
+```
+
+-   **Promise async await 的使用**
+    > -   返回 Promise 对象的方法称为异步方法，异步方法请用 async 标出
+    > -   Promise 拥有 then，catch，finally 方法
+    > -   回调较多的时候，可以考虑改用同步写法
+    >
+    > 请熟练掌握相关方法，`axios` 是依赖于 Promise 的 ajax 请求类，项目中会大量用到  
+    > 使用实例可以看 `App.vue` 和 `application.js` 关于配置的初始化代码
+
+```js
+// 异步函数写法，返回一个Promise对象
+async function readFile(fileName) {
+    return new Promise(function (resolve, reject) {
+        fs.readFile(fileName, function (error, data) {
+            if (error) return reject(error);
+            resolve(data);
+        });
+    });
+}
+
+// 多个异步函数的同步写法
+async function asyncReadFile() {
+    const f1 = await readFile('/etc/fstab');
+    const f2 = await readFile('/etc/shells');
+    console.log(f1.toString());
+    console.log(f2.toString());
+}
+```
+
+# 进阶
+
+## vue 插件开发
+
+> 想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓`mixin`在的相关知识
+
+**_如果我们想对所有的 vue 对象附加固定的参数或者方法，可以使用以下方法：_**
+
+```js
+[import]: src/plugins/axios.js
+```
+
+---
+
+## 相关技术使用实践
+
+---
+
+# 杂项

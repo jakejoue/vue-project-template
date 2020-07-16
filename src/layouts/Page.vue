@@ -28,6 +28,44 @@ export default {
             return this.CONFIG.get(navKey);
         },
     },
+    mounted() {
+        window.addEventListener('scroll', this.onScroll);
+    },
+    methods: {
+        onScroll() {
+            setTimeout(() => {
+                this.setActiveHash();
+            }, 300);
+        },
+        setActiveHash() {
+            // const sidebarLinks = [].slice.call(
+            //     document.querySelectorAll('#aside .ivu-menu-item')
+            // );
+            const anchors = document.querySelectorAll('#main .headerlink');
+
+            const scrollTop = Math.max(
+                window.pageYOffset,
+                document.documentElement.scrollTop,
+                document.body.scrollTop
+            );
+
+            for (let i = 0; i < anchors.length; i++) {
+                const anchor = anchors[i];
+                const nextAnchor = anchors[i + 1];
+
+                const isActive =
+                    (i === 0 && scrollTop === 0) ||
+                    (scrollTop >= anchor.offsetTop - 100 &&
+                        (!nextAnchor || scrollTop < nextAnchor.offsetTop + 50));
+                if (isActive) {
+                    console.log(anchor);
+                }
+            }
+        },
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.onScroll);
+    },
 };
 </script>
 
