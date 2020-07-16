@@ -33,7 +33,12 @@ const SideLink = {
         }
 
         return (
-            <i-MenuItem name={name} style={{ 'padding-left': depth + 'em' }} to={to} {...config}>
+            <i-MenuItem
+                name={name}
+                style={{ 'padding-left': depth + 'em' }}
+                to={to}
+                {...config}
+            >
                 {prefix ? <i-Icon type={prefix} /> : ''}
                 {text}
                 {suffix ? <i-Icon type={suffix} /> : ''}
@@ -74,7 +79,6 @@ export default {
 </script>
 
 <style lang="less">
-@prefixCls: side-link;
 @top-height: @header-height + 1px;
 
 #aside {

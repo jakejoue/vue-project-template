@@ -65,22 +65,22 @@ module.exports = {
             ],
         },
         {
-            text: '进阶',
+            text: '编码风格规范',
             children: [
                 {
-                    text: '编码风格规范',
-                    children: [
-                        {
-                            text: '命名规范',
-                        },
-                        {
-                            text: '组件定义和使用',
-                        },
-                        {
-                            text: '编程风格',
-                        },
-                    ],
+                    text: '命名规范',
                 },
+                {
+                    text: '组件定义和使用',
+                },
+                {
+                    text: '编程风格',
+                },
+            ],
+        },
+        {
+            text: '进阶',
+            children: [
                 {
                     text: 'vue插件开发',
                 },

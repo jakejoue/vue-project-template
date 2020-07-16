@@ -36,14 +36,20 @@ export function getProxyUrl(url = '') {
 export function getParam(paramName) {
     let paramValue = null;
     let isFound = false;
-    if (window.location.search.indexOf('?') == 0 && window.location.search.indexOf('=') > 1) {
+    if (
+        window.location.search.indexOf('?') == 0 &&
+        window.location.search.indexOf('=') > 1
+    ) {
         const arrSource = decodeURIComponent(window.location.search)
             .substring(1, window.location.search.length)
             .split('&');
         let i = 0;
         while (i < arrSource.length && !isFound) {
             if (arrSource[i].indexOf('=') > 0) {
-                if (arrSource[i].split('=')[0].toLowerCase() == paramName.toLowerCase()) {
+                if (
+                    arrSource[i].split('=')[0].toLowerCase() ==
+                    paramName.toLowerCase()
+                ) {
                     paramValue = arrSource[i].split('=')[1];
                     isFound = true;
                 }

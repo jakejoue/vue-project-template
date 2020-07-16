@@ -1,7 +1,3 @@
-<template>
-    <div></div>
-</template>
-
 <script>
 export default {
     // 名称，这些配置不属于vue初始化必备变量，一般是框架开发人员定义的属性值
@@ -42,6 +38,11 @@ export default {
     // 计算数据修改后调用的句柄
     watch: {},
 
+    // 自定义渲染函数，各位可以自行阅读jsx或者vnode的相关知识
+    render() {
+        return '';
+    },
+
     /************************ 声明周期开始 *************************/
     beforeCreate() {
         // 此时数据未被初始化，this对象已经存在
@@ -79,5 +80,3 @@ export default {
     methods: {},
 };
 </script>
-
-<style></style>

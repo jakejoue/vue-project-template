@@ -8,7 +8,11 @@
                     <!-- loop 节点 -->
                     <template v-for="(cmenu, j) in menu.children">
                         <!-- if 存在分组 -->
-                        <i-MenuGroup v-if="cmenu.children" :title="cmenu.text" :key="j">
+                        <i-MenuGroup
+                            v-if="cmenu.children"
+                            :title="cmenu.text"
+                            :key="j"
+                        >
                             <LinkComponent
                                 v-for="(ccmenu, k) in cmenu.children"
                                 :key="i + '-' + j + '-' + k"
@@ -16,7 +20,11 @@
                             />
                         </i-MenuGroup>
                         <!-- else 不存在分组 -->
-                        <LinkComponent v-else :key="i + '-' + j" :option="cmenu" />
+                        <LinkComponent
+                            v-else
+                            :key="i + '-' + j"
+                            :option="cmenu"
+                        />
                     </template>
                 </i-Submenu>
                 <!-- else 不存在子目录 -->

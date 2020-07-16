@@ -167,7 +167,8 @@ const Dialog = {
         }
 
         // 去除当前焦点元素
-        document.querySelector('*:focus') && document.querySelector('*:focus').blur();
+        document.querySelector('*:focus') &&
+            document.querySelector('*:focus').blur();
 
         const modal = CompManager.add(comp, { props }).$children[0];
 

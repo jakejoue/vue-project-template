@@ -4,7 +4,9 @@ import { initHttpUtil } from './http';
 // 读取配置的方法
 async function fetchConfig(path = '') {
     return Axios.get('./config/application' + path + '.js').then(({ data }) =>
-        eval(`(function() {var module = {exports:{}}; ${data}; return module.exports;})()`)
+        eval(
+            `(function() {var module = {exports:{}}; ${data}; return module.exports;})()`
+        )
     );
 }
 

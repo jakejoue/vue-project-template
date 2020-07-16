@@ -2,7 +2,11 @@
     <footer id="footer" role="contentinfo">
         <p>
             遵循
-            <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">
+            <a
+                href="https://opensource.org/licenses/MIT"
+                target="_blank"
+                rel="noopener"
+            >
                 MIT 开源协议
             </a>
             <br />

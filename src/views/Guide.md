@@ -17,7 +17,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 
 ---
 
-> vue-project-tmplate 目录结构如下：
+-   目录结构如下：
 
 ```
 .
@@ -78,7 +78,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 └── README.md
 ```
 
-> 来看看这些都有什么用：
+-   来看看这些都有什么用：
 
 |   文件/目录   | 描述                                                                                                                                            |
 | :-----------: | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -88,7 +88,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 | vue.config.js | vue 项目配置文件                                                                                                                                |
 | package.json  | node 项目配置文件，包含常用的引用等                                                                                                             |
 
-> src 源码目录：
+-   src 源码目录：
 
 | 文件/目录  | 描述                                                                  |
 | :--------: | --------------------------------------------------------------------- |
@@ -106,29 +106,23 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 
 ---
 
-> vue 项目配置：
+> 默认配置集成了一些开发常用的配置，主要包括以下部分：
+>
+> -   打包后的文件采用相对路径并关闭文件后缀名 hash
+> -   css，less 新增配置项
+> -   其他常用的配置
+>
+> _注意：插件集成的配置可以在 plugins 目录下查看源文件_
 
 ```js
 [import]: vue.config.js
 ```
 
-> vue 相关插件配置（可在 plugins 相关路径进行查看）：
+## 运行流程
 
--   **_axios 配置_**
+---
 
-```js
-[import]: src/plugins/axios.js
-```
-
--   **_iview 配置_**
-
-```js
-[import]: src/plugins/iview.js
-```
-
-### 运行流程
-
-> webpack 运行逻辑：
+### webpack 运行逻辑：
 
 1. 读取配置项，即 vue.config.js 文件
 2. 从主入口开始读取文件，默认为 main.js
@@ -136,7 +130,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 4. webpack 输出编译后的文件到 output 指定的目录，默认为 dist
 5. 相关静态文件处理插件运行，如为 html 模板绑定指定的 title 和添加 js 引用
 
-> vue-project-template 渲染流程和标准 vue 项目渲染流程一致，只是新增了配置项的读取：
+### vue-project-template 渲染流程和标准 vue 项目渲染流程一致，只是新增了配置项的读取：
 
 1. 打开浏览器，main.js 运行，进行相关 vue 插件项的初始化
 
@@ -144,17 +138,21 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 [import]: src/main.js
 ```
 
-2. App.vue 读取外部配置，并绑定 CONFIG 对象（可选），初始化完毕后渲染匹配的路由界面，渲染指定的 layout 和界面
+2. App.vue 读取外部配置，并绑定 CONFIG 对象（可选），初始化完毕
 
 ```vue
 [import]: src/App.vue
 ```
 
-3. 界面渲染完毕
+3. 渲染匹配的路由界面，渲染指定的 layout 和界面
 
-# 进阶
+```vue
+[import]: src/layouts/Page.vue
+```
 
-## 编码风格规范
+4. 界面渲染完毕
+
+# 编码风格规范
 
 vue-project-template 内部集成了 `eslint + prettier`
 
@@ -178,9 +176,9 @@ vue-project-template 内部集成了 `eslint + prettier`
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 ```
 
----
+## 命名规范
 
-### 命名规范
+---
 
 -   **_文件夹_**
 
@@ -210,35 +208,83 @@ vue-project-template 内部集成了 `eslint + prettier`
 > 命名规范目前没有良好的工具进行校验，只有通过各位的坚持  
 > _形成良好的命名规范，可以让代码更加具有辨识性，更好维护，还有很多好处等待各位自己发掘_
 
-### 组件定义和使用
+## 组件定义和使用
 
--   **单文件组件的定义**
-    > vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的声明周期顺序进行代码编写，建议顺序如下
-    >
-    > -   `name，mixin，components` 等静态配置项
-    > -   `provide，store` 等对子组件提供数据的配置项
-    > -   `props，inject，data，computed，watch`等数据源，参考顺序为从<br />`[外部数据] --> [内] --> [计算属性] --> [数据监视]`
-    > -   `beforeCreate --> created --> beforeMount --> mounted --> beforeUpdate --> updated --> beforeDestroy --> destroyed`生命周期方法编写
-    > -   `methods`方法和接口的编写
+---
+
+-   **组件的编写顺序**
+
+> vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的声明周期顺序进行代码编写，建议顺序如下
+>
+> -   `name，mixin，components` 等静态配置项
+> -   `provide，store` 等对子组件提供数据的配置项
+> -   `props，inject，data，computed，watch`等数据源，参考顺序为从<br />`[外部数据] --> [内] --> [计算属性] --> [数据监视]`
+> -   `beforeCreate --> created --> beforeMount --> mounted --> beforeUpdate --> updated --> beforeDestroy --> destroyed`生命周期方法编写
+> -   `methods`方法和接口的编写
 
 ![vue生命周期](@/assets/img/lifecycle.png)
 
 ```vue
-[import]: src/components/Custom.vue
+[import]: src/components/CompDemo.vue
 ```
 
--   **组件的定义和使用**
+-   **事件-属性-接口的定义和使用**
+
+> 对于一个 html 标签，使用场景一般如下：
+>
+> -   `<img src = 'imgUrl.png' onclick="onClickHandler"/>`
+> -   `document.querySelector('img').click()`
+>
+> 这里 `src` 为 img 标签的属性，`onclick`为标签的事件绑定，`click()`为接口的显示调用
+
+**_同理，对于一个标准的 vue 组件，对外暴露的也是这三类用法，代码示例：_**
 
 ```vue
-
+[import]: src/components/ListDemo.vue
 ```
 
-### 编码风格
+-   **样式的编写和命名**
 
-## vue 插件开发
+> vue 提供了一个 `scope` 标签来来进行样式的编写，这是一个能快捷的开发 vue 组件且不用考虑 class 命名的方式  
+> 但是在实际使用过程中，scope 写法存在以下的问题：
+>
+> 1. 内部存在 ui 组件样式的重写的时候，当前组件的 scope 标签是不能查询到子组件的，这时候样式重写会失效
+> 2. 存在 `deep` 标签的`~~~`的时候，样式的作用域就变得不可控
+> 3. 组件类名命名会变得混乱，可能出现意想不到的样式交叉影响
 
----
+**_为了避免上述情况，我们推荐使用 less，sass 等模块化组件编写语言， 代码示例：_**
 
-## 相关技术使用实践
+```vue
+[import]: src/components/StyleDemo.vue
+```
+
+-   **标签的使用**
+
+> 之前我们告诉大家，组件命名统一为大写开头命名，现在我告诉各位原因  
+> 在进行组件开发的时候，一般存在 3 类标签：
+>
+> 1. html 标签，如 `div，span`（全小写）
+> 2. 第三方插件标签，如`router-link，router-vue`（有统一的前缀，iviewUI 采用 `i-` 开头同理）
+> 3. 自定义组件标签，采用`MyButton`写法
+
+**_代码示例：_**
+
+```html
+<template>
+    <!-- 通过命名，就可以很直观的知道组件的来源 -->
+
+    <header>
+        <!-- logo组件，这里是vue-router提供的组件 -->
+        <router-link to="/" id="logo">
+            <img src="@/assets/img/logo.png" alt="vue logo" />
+            <span>vue-project-template</span>
+        </router-link>
+        <!-- 导航栏组件，自定义组件 -->
+        <MyNav />
+    </header>
+</template>
+```
+
+## 编程风格
 
 ---

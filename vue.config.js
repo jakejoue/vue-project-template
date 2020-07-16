@@ -18,7 +18,10 @@ module.exports = {
                  * 即外部(public/images/...)目录，不做相关处理
                  */
                 url(url, filePath) {
-                    if (/^(.\/images\/)/.test(url) && !/node_modules/.test(filePath)) {
+                    if (
+                        /^(.\/images\/)/.test(url) &&
+                        !/node_modules/.test(filePath)
+                    ) {
                         return false;
                     }
                     return true;
@@ -29,7 +32,10 @@ module.exports = {
                 lessOptions: {
                     javascriptEnabled: true,
                 },
-                // less编译附加变量文件
+                /**
+                 * less编译附加变量文件
+                 * 即在相应的文件中不需手动引用即可使用custom.less中的变量
+                 */
                 prependData(loaderContext) {
                     const { resourcePath } = loaderContext;
 
@@ -61,11 +67,11 @@ module.exports = {
                 {
                     test: /\.md$/,
                     use: [
+                        { loader: 'vue-loader' },
                         {
-                            loader: 'vue-loader',
-                        },
-                        {
-                            loader: require.resolve('./packages/markdown-loader'),
+                            loader: require.resolve(
+                                './packages/markdown-loader'
+                            ),
                         },
                     ],
                 },

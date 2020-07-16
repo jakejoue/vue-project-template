@@ -15,7 +15,7 @@
     </main>
 </template>
 
-<style lang="less">
+<style lang="less" scope>
 .main-wrapper {
     padding: 40px 40px 30px;
 

@@ -46,7 +46,10 @@ export function filterSort(src, sortArray = [], key = 'id') {
     if (typeOf(src) === 'array' && src.length) {
         return src
             .filter(c => sortArray.includes(c[key]))
-            .sort((pre, next) => sortArray.indexOf(pre[key]) - sortArray.indexOf(next[key]));
+            .sort(
+                (pre, next) =>
+                    sortArray.indexOf(pre[key]) - sortArray.indexOf(next[key])
+            );
     }
     return [];
 }
@@ -143,7 +146,11 @@ export function fixObj(src, templateObj) {
  * @param {Array.<String>} optOptions.ignores 不用拷贝的对象
  */
 export function deepCopy(data, optOptions = {}) {
-    const { valueProcessors = [], keyProcessors = [], ignores = [] } = optOptions;
+    const {
+        valueProcessors = [],
+        keyProcessors = [],
+        ignores = [],
+    } = optOptions;
 
     const t = typeOf(data);
     let o;
