@@ -102,12 +102,12 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 
 ## 默认配置
 
-> 默认配置集成了一些开发常用的配置，主要包括以下部分：
->
-> -   打包后的文件采用相对路径并关闭文件后缀名 hash
-> -   css，less 新增配置项
-> -   其他常用的配置
->
+默认配置集成了一些开发常用的配置，主要包括以下部分：
+
+-   打包后的文件采用相对路径并关闭文件后缀名 hash
+-   css，less 新增配置项
+-   其他常用的配置
+
 > _注意：插件集成的配置可以在 plugins 目录下查看源文件_
 
 ```js
@@ -204,13 +204,13 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 -   **组件的编写顺序**
 
-> vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的声明周期顺序进行代码编写，建议顺序如下
->
-> -   `name，mixin，components` 等静态配置项
-> -   `provide，store` 等对子组件提供数据的配置项
-> -   `props，inject，data，computed，watch`等数据源，参考顺序为从<br />`[外部数据] --> [内] --> [计算属性] --> [数据监视]`
-> -   `beforeCreate --> created --> beforeMount --> mounted --> beforeUpdate --> updated --> beforeDestroy --> destroyed`生命周期方法编写
-> -   `methods`方法和接口的编写
+vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的声明周期顺序进行代码编写，建议顺序如下
+
+-   `name，mixin，components` 等静态配置项
+-   `provide，store` 等对子组件提供数据的配置项
+-   `props，inject，data，computed，watch`等数据源，参考顺序为从<br />`[外部数据] --> [内] --> [计算属性] --> [数据监视]`
+-   `beforeCreate --> created --> beforeMount --> mounted --> beforeUpdate --> updated --> beforeDestroy --> destroyed`生命周期方法编写
+-   `methods`方法和接口的编写
 
 ![vue生命周期](@/assets/img/lifecycle.png)
 
@@ -220,14 +220,14 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 -   **事件-属性-接口的定义和使用**
 
-> 对于一个 html 标签，使用场景一般如下：
->
-> -   `<img src = 'imgUrl.png' onclick="onClickHandler"/>`
-> -   `document.querySelector('img').click()`
->
-> 这里 `src` 为 img 标签的属性，`onclick`为标签的事件绑定，`click()`为接口的显示调用
+对于一个 html 标签，使用场景一般如下：
 
-**_同理，对于一个标准的 vue 组件，对外暴露的也是这三类用法，代码示例：_**
+-   `<img src = 'imgUrl.png' onclick="onClickHandler"/>`
+-   `document.querySelector('img').click()`
+
+这里 `src` 为 img 标签的属性，`onclick`为标签的事件绑定，`click()`为接口的显示调用
+
+> _同理，对于一个标准的 vue 组件，对外暴露的也是这三类用法，代码示例：_
 
 ```vue
 [import]: src/components/ListDemo.vue
@@ -235,14 +235,14 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 -   **样式的编写和命名**
 
-> vue 提供了一个 `scope` 标签来来进行样式的编写，这是一个能快捷的开发 vue 组件且不用考虑 class 命名的方式  
-> 但是在实际使用过程中，scope 写法存在以下的问题：
->
-> 1. 内部存在 ui 组件样式的重写的时候，当前组件的 scope 标签是不能查询到子组件的，这时候样式重写会失效
-> 2. 存在 `deep` 标签的`~~~`的时候，样式的作用域就变得不可控
-> 3. 组件类名命名会变得混乱，可能出现意想不到的样式交叉影响
+vue 提供了一个 `scope` 标签来来进行样式的编写，这是一个能快捷的开发 vue 组件且不用考虑 class 命名的方式  
+但是在实际使用过程中，scope 写法存在以下的问题：
 
-**_为了避免上述情况，我们推荐使用 less，sass 等模块化组件编写语言， 代码示例：_**
+1.  内部存在 ui 组件样式的重写的时候，当前组件的 scope 标签是不能查询到子组件的，这时候样式重写会失效
+2.  存在 `deep` 标签的`~~~`的时候，样式的作用域就变得不可控
+3.  组件类名命名会变得混乱，可能出现意想不到的样式交叉影响
+
+> _为了避免上述情况，我们推荐使用 less，sass 等模块化组件编写语言， 代码示例：_
 
 ```vue
 [import]: src/components/StyleDemo.vue
@@ -250,14 +250,14 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 -   **标签的使用**
 
-> 之前我们告诉大家，组件命名统一为大写开头命名，现在我告诉各位原因  
-> 在进行组件开发的时候，一般存在 3 类标签：
->
-> 1. html 标签，如 `div，span`（全小写）
-> 2. 第三方插件标签，如`router-link，router-vue`（有统一的前缀，iviewUI 采用 `i-` 开头同理）
-> 3. 自定义组件标签，采用`MyButton`写法
+之前我们告诉大家，组件命名统一为大写开头命名，现在我告诉各位原因  
+在进行组件开发的时候，一般存在 3 类标签：
 
-**_代码示例：_**
+1.  html 标签，如 `div，span`（全小写）
+2.  第三方插件标签，如`router-link，router-vue`（有统一的前缀，iviewUI 采用 `i-` 开头同理）
+3.  自定义组件标签，采用`MyButton`写法
+
+> _代码示例：_
 
 ```html
 <template>
@@ -277,15 +277,15 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 ## 编程风格
 
-> 推荐使用 [es6](https://es6.ruanyifeng.com/) 语法进行开发  
-> 项目内置的语法检测为 [eslint-plugin-vue](https://eslint.vuejs.org/rules/) 默认推荐  
-> 并新增了以下规定：
->
-> -   禁用`var`声明变量，变量声明请用`let`或`const`
-> -   js 变量命名规定必须为`camelcase`风格，`active_index`这种声明方法将不被允许
-> -   `debugger，console`会进行警告，调试完模块后请删除相关 debugger 代码
+推荐使用 [es6](https://es6.ruanyifeng.com/) 语法进行开发  
+项目内置的语法检测为 [eslint-plugin-vue](https://eslint.vuejs.org/rules/) 默认推荐  
+并新增了以下规定：
 
-**_下面简单对常用的 es6 语法进行讲解：_**
+-   禁用`var`声明变量，变量声明请用`let`或`const`
+-   js 变量命名规定必须为`camelcase`风格，`active_index`这种声明方法将不被允许
+-   `debugger，console`会进行警告，调试完模块后请删除相关 debugger 代码
+
+> _下面简单对常用的 es6 语法进行讲解：_
 
 -   变量声明和赋值
 
@@ -421,10 +421,11 @@ class ColorPoint extends Point {
 ```
 
 -   **Promise async await 的使用**
-    > -   返回 Promise 对象的方法称为异步方法，异步方法请用 async 标出
-    > -   Promise 拥有 then，catch，finally 方法
-    > -   回调较多的时候，可以考虑改用同步写法
-    >
+
+    -   返回 Promise 对象的方法称为异步方法，异步方法请用 async 标出
+    -   Promise 拥有 then，catch，finally 方法
+    -   回调较多的时候，可以考虑改用同步写法
+
     > 请熟练掌握相关方法，`axios` 是依赖于 Promise 的 ajax 请求类，项目中会大量用到  
     > 使用实例可以看 `App.vue` 和 `application.js` 关于配置的初始化代码
 
@@ -452,9 +453,9 @@ async function asyncReadFile() {
 
 ## vue 插件开发
 
-> 想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓 `mixin` 的相关知识
+想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓 `mixin` 的相关知识
 
-**_如果我们想对所有的 vue 对象附加固定的参数或者方法，可以使用以下方法：_**
+> _如果想对所有的 vue 对象附加固定的参数或者方法，可以使用以下方法：_
 
 ```js
 [import]: src/plugins/axios.js
@@ -462,15 +463,17 @@ async function asyncReadFile() {
 
 ## 相关技术使用实践
 
-### **路由使用实践 vue-router**
+### 路由使用实践 vue-router
 
-> 路由的使用方式较为简单，只要声明一个 VueRouter 对象。  
-> 对于开发人员，重要的是要清楚路由的匹配方式
->
-> -   从顶级路由开始匹配，即 VueRouter 下的 `routers` 参数
-> -   匹配到顶级路由，再进行子路由的匹配，即路由下的 `children` 参数
-> -   匹配顺序由声明顺序决定
-> -   命名路由，由`name`参数进行区分，默认为 `default`
+路由的使用方式较为简单，只要声明一个 VueRouter 对象。  
+对于开发人员，重要的是要清楚路由的匹配方式
+
+-   从顶级路由开始匹配，即 VueRouter 下的 `routers` 参数
+-   匹配到顶级路由，再进行子路由的匹配，即路由下的 `children` 参数
+-   匹配顺序由声明顺序决定
+-   命名路由，由`name`参数进行区分，默认为 `default`
+
+> _路由声明方式示例：_
 
 ```js
 const router = new VueRouter({
@@ -481,10 +484,12 @@ const router = new VueRouter({
 
 -   **_嵌套路由的使用方式_**
 
-> 嵌套路由常用于多页面的业务系统，具有以下特征：
->
-> -   系统需要多种布局方式，这时可以用顶级路由加以规定
-> -   具有多个子页面，且页面直接不互为关联
+嵌套路由常用于多页面的业务系统，具有以下特征：
+
+-   系统需要多种布局方式，这时可以用顶级路由加以规定
+-   具有多个子页面，且页面直接不互为关联
+
+> _代码示例_
 
 ```html
 <!-- App.vue 顶级路由 -->
@@ -509,11 +514,13 @@ const router = new VueRouter({
 
 -   **_命名路由使用方式_**
 
-> 有时候想同时 (同级) 展示多个视图，而不是嵌套展示，这个时候命名视图就派上用场了。
->
-> -   存在同样的布局方式
-> -   相同布局内存在多种展示方式，如不同的 `menus`(目录栏)
-> -   其他可能的使用场景
+有时候想同时 (同级) 展示多个视图，而不是嵌套展示，这个时候命名视图就派上用场了。
+
+-   存在同样的布局方式
+-   相同布局内存在多种展示方式，如不同的 `menus`(目录栏)
+-   其他可能的使用场景
+
+> _代码示例_
 
 ```html
 <router-view class="view one"></router-view>
@@ -521,7 +528,7 @@ const router = new VueRouter({
 <router-view class="view three" name="b"></router-view>
 ```
 
-**_一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件。确保正确使用 components 配置 (带上 s)：_**
+> _一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件。确保正确使用 components 配置 (带上 s)：_
 
 ```js
 const router = new VueRouter({
@@ -538,19 +545,19 @@ const router = new VueRouter({
 });
 ```
 
-### **状态管理器实践 vuex**
+### 状态管理器实践 vuex
 
-> `vuex` 是为全局的组件提供一个 _被监听_ 的数据仓库，所有的 vue 组件公用该仓库
-> 这样当一个组件改变了内部数据的时候，其他组件就能监听到数据变换
-> 使用时候，提供以下使用参考：
->
-> -   不要直接操作数据，请通过 `Mutation` 等接口进行
-> -   模块较多的时候，请开启 `namespaced`（命名空间）
-> -   命名空间名称和 _数据提供模块或管理模块_ 保持一致，
->     如 `user` 控制用户登陆的模块，其 vuex 命名空间也叫 user
-> -   取用数据的时候请注意数据状态，是否已经初始化
+`vuex` 是为全局的组件提供一个 _被监听_ 的数据仓库，所有的 vue 组件公用该仓库
+这样当一个组件改变了内部数据的时候，其他组件就能监听到数据变换
+使用时候，提供以下使用参考：
 
-**_核心代码和思想都较为简单，代码如下：_**
+-   不要直接操作数据，请通过 `Mutation` 等接口进行
+-   模块较多的时候，请开启 `namespaced`（命名空间）
+-   命名空间名称和 _数据提供模块或管理模块_ 保持一致，
+    如 `user` 控制用户登陆的模块，其 vuex 命名空间也叫 user
+-   取用数据的时候请注意数据状态，是否已经初始化
+
+> _核心代码和思想都较为简单，代码如下：_
 
 ```js
 function applyMixin(Vue) {
