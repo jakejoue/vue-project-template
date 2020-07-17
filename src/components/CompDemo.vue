@@ -28,7 +28,7 @@ export default {
          * 此时可以通过 Object.assign(this, { map: null })定义相关不被监听的null值
          *
          * 注意：这里定义的值，除了在方法中使用，
-         * 不要在任何可能被监听的属性中使用（如：computed，watch）
+         * 不建议在被监听的属性中使用（如：computed，watch）
          * 否则可能会被vue框架拦截，再次生成被监听的对象
          */
         Object.assign(this, { map: null });

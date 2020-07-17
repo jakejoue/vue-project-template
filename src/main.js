@@ -12,6 +12,8 @@ import '@/assets/styles/markdown.less';
 import './plugins/iview.js';
 // 引入axios
 import './plugins/axios.js';
+// 引入watch
+import './plugins/unWatch.js';
 
 // router
 import router from './router/';
