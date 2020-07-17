@@ -19,22 +19,34 @@ module.exports = {
                     text: 'vue技术',
                     children: [
                         { text: 'vue.js', to: 'https://cn.vuejs.org/' },
-                        { text: 'vue-router', to: 'https://router.vuejs.org/zh/' },
+                        {
+                            text: 'vue-router',
+                            to: 'https://router.vuejs.org/zh/',
+                        },
                         { text: 'vuex', to: 'https://vuex.vuejs.org/zh/' },
                         {
                             text: 'vue-jsx',
-                            to: 'https://github.com/vuejs/babel-plugin-transform-vue-jsx',
+                            to:
+                                'https://github.com/vuejs/babel-plugin-transform-vue-jsx',
                         },
                     ],
                 },
                 {
                     text: 'UI框架',
-                    children: [{ text: 'iview', to: 'https://iviewui.com/docs/introduce' }],
+                    children: [
+                        {
+                            text: 'iview',
+                            to: 'https://iviewui.com/docs/introduce',
+                        },
+                    ],
                 },
                 {
                     text: '其他',
                     children: [
-                        { text: 'ES6入门教程', to: 'https://es6.ruanyifeng.com/' },
+                        {
+                            text: 'ES6入门教程',
+                            to: 'https://es6.ruanyifeng.com/',
+                        },
                         { text: 'less教程', to: 'http://lesscss.cn/' },
                     ],
                 },
@@ -82,14 +94,14 @@ module.exports = {
             text: '进阶',
             children: [
                 {
-                    text: 'vue插件开发',
+                    text: 'vue 插件开发',
+                    to: 'vue-插件开发',
                 },
                 {
                     text: '相关技术使用实践',
                 },
             ],
         },
-        { text: '杂项' },
     ],
 
     // api

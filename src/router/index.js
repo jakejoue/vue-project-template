@@ -9,6 +9,7 @@ import pageRouter from './page';
 import errorRouter from './error';
 
 const router = new VueRouter({
+    // 三个子路由，顺序匹配，error界面放到最后
     routes: [homeRouter, pageRouter, errorRouter],
 });
 

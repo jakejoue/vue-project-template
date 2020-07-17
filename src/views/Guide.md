@@ -141,7 +141,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 3. 渲染匹配的路由界面，渲染指定的 layout 和界面
 
 ```vue
-[import]: src/layouts/Page.vue
+[import]: src/layouts/Default.vue
 ```
 
 4. 界面渲染完毕
@@ -452,7 +452,7 @@ async function asyncReadFile() {
 
 ## vue 插件开发
 
-> 想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓`mixin`在的相关知识
+> 想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓 `mixin` 的相关知识
 
 **_如果我们想对所有的 vue 对象附加固定的参数或者方法，可以使用以下方法：_**
 
@@ -462,4 +462,132 @@ async function asyncReadFile() {
 
 ## 相关技术使用实践
 
-# 杂项
+### **路由使用实践 vue-router**
+
+> 路由的使用方式较为简单，只要声明一个 VueRouter 对象。  
+> 对于开发人员，重要的是要清楚路由的匹配方式
+>
+> -   从顶级路由开始匹配，即 VueRouter 下的 `routers` 参数
+> -   匹配到顶级路由，再进行子路由的匹配，即路由下的 `children` 参数
+> -   匹配顺序由声明顺序决定
+> -   命名路由，由`name`参数进行区分，默认为 `default`
+
+```js
+const router = new VueRouter({
+    // 三个子路由，顺序匹配，error界面放到最后
+    routes: [homeRouter, pageRouter, errorRouter],
+});
+```
+
+-   **_嵌套路由的使用方式_**
+
+> 嵌套路由常用于多页面的业务系统，具有以下特征：
+>
+> -   系统需要多种布局方式，这时可以用顶级路由加以规定
+> -   具有多个子页面，且页面直接不互为关联
+
+```html
+<!-- App.vue 顶级路由 -->
+<template>
+    <router-view />
+</template>
+
+<!-- Default.vue 子界面路由，规定一种布局 -->
+<template>
+    <div>
+        <header />
+        <router-view />
+        <footer />
+    </div>
+</template>
+
+<!-- 实际业务组件 -->
+<template>
+    <div>...省略</div>
+</template>
+```
+
+-   **_命名路由使用方式_**
+
+> 有时候想同时 (同级) 展示多个视图，而不是嵌套展示，这个时候命名视图就派上用场了。
+>
+> -   存在同样的布局方式
+> -   相同布局内存在多种展示方式，如不同的 `menus`(目录栏)
+> -   其他可能的使用场景
+
+```html
+<router-view class="view one"></router-view>
+<router-view class="view two" name="a"></router-view>
+<router-view class="view three" name="b"></router-view>
+```
+
+**_一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件。确保正确使用 components 配置 (带上 s)：_**
+
+```js
+const router = new VueRouter({
+    routes: [
+        {
+            path: '/',
+            components: {
+                default: Foo,
+                a: Bar,
+                b: Baz,
+            },
+        },
+    ],
+});
+```
+
+### **状态管理器实践 vuex**
+
+> `vuex` 是为全局的组件提供一个 _被监听_ 的数据仓库，所有的 vue 组件公用该仓库
+> 这样当一个组件改变了内部数据的时候，其他组件就能监听到数据变换
+> 使用时候，提供以下使用参考：
+>
+> -   不要直接操作数据，请通过 `Mutation` 等接口进行
+> -   模块较多的时候，请开启 `namespaced`（命名空间）
+> -   命名空间名称和 _数据提供模块或管理模块_ 保持一致，
+>     如 `user` 控制用户登陆的模块，其 vuex 命名空间也叫 user
+> -   取用数据的时候请注意数据状态，是否已经初始化
+
+**_核心代码和思想都较为简单，代码如下：_**
+
+```js
+function applyMixin(Vue) {
+    var version = Number(Vue.version.split('.')[0]);
+
+    if (version >= 2) {
+        // 注意，vuex的数据，是在 beforeCreate 被继承
+        Vue.mixin({ beforeCreate: vuexInit });
+    } else {
+        // override init and inject vuex init procedure
+        // for 1.x backwards compatibility.
+        var _init = Vue.prototype._init;
+        Vue.prototype._init = function (options) {
+            if (options === void 0) options = {};
+
+            options.init = options.init
+                ? [vuexInit].concat(options.init)
+                : vuexInit;
+            _init.call(this, options);
+        };
+    }
+
+    /**
+     * Vuex init hook, injected into each instances init hooks list.
+     */
+
+    function vuexInit() {
+        var options = this.$options;
+        // store injection
+        if (options.store) {
+            this.$store =
+                typeof options.store === 'function'
+                    ? options.store()
+                    : options.store;
+        } else if (options.parent && options.parent.$store) {
+            this.$store = options.parent.$store;
+        }
+    }
+}
+```

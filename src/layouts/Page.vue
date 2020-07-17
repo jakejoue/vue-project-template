@@ -31,13 +31,20 @@ export default {
             return this.CONFIG.get(navKey);
         },
     },
+    watch: {
+        $route: {
+            immediate: true,
+            handler() {
+                // 选中第一个
+                this.$nextTick(() => {
+                    const anchor = document.querySelector('.headerlink');
+                    this.activeName = anchor ? anchor.id : '';
+                });
+            },
+        },
+    },
     mounted() {
         window.addEventListener('scroll', this.scrollHandler);
-
-        // 选中第一个
-        this.$nextTick(() => {
-            this.activeName = document.querySelector('.headerlink').innerHTML;
-        });
     },
     methods: {
         scrollHandler: debounce(function () {
@@ -61,7 +68,7 @@ export default {
                     (scrollTop >= anchor.offsetTop + 10 &&
                         (!nextAnchor || scrollTop < nextAnchor.offsetTop - 10));
                 if (isActive) {
-                    this.activeName = anchor.innerHTML;
+                    this.activeName = anchor.id;
                 }
             }
         },

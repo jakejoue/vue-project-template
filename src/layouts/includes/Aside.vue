@@ -41,7 +41,6 @@ const SideLink = {
             <i-MenuItem
                 name={name}
                 style={{ 'padding-left': depth + 'em' }}
-                to={to}
                 {...config}
             >
                 {prefix ? <i-Icon type={prefix} /> : ''}
