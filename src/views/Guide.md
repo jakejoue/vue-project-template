@@ -461,6 +461,32 @@ async function asyncReadFile() {
 [import]: src/plugins/axios.js
 ```
 
+> _高级的插件开发，需要实现对生命周期方法的修改，示例如下：_
+
+```js
+// 一个vue插件是一个带install方法的对象
+const customPlugin = {
+    install(vue, options) {
+        // 全局混入相关方法，vue对象在初始化的时候会继承该方法
+        vue.mixin({
+            beforeCreate() {
+                // 做一些插件初始化操作
+                // 如vuex做的 $store 继承
+            },
+            beforeDestroy() {
+                // 其他操作
+            },
+            methods: {
+                // 添加一些方法
+            },
+        });
+    },
+};
+
+// 插件使用
+Vue.use(customPlugin);
+```
+
 ## 相关技术使用实践
 
 ### 路由使用实践 vue-router
