@@ -9,7 +9,7 @@ const COMPS = new Map();
 
 /**
  * vue实例化时需要附加的对象
- * @type {{store?: any, router?: any}}
+ * @type { {store?: any, router?: any} }
  */
 let VUE_CONFIG = {};
 
