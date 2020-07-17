@@ -12,8 +12,17 @@
                 </h1>
             </div>
         </div>
+        <README />
     </main>
 </template>
+
+<script>
+import README from '@/../README.md';
+
+export default {
+    components: { README },
+};
+</script>
 
 <style lang="less" scope>
 .main-wrapper {
