@@ -1,7 +1,5 @@
 <template>
-    <transition name="fade">
-        <router-view v-if="isInited" />
-    </transition>
+    <router-view v-if="isInited" />
 </template>
 
 <script>
