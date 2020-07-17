@@ -3,14 +3,17 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+// 不需要layout的路由
+import appRouters from './app';
+
 // 相关layout下的配置界面
 import homeRouter from './home';
 import pageRouter from './page';
 import errorRouter from './error';
 
 const router = new VueRouter({
-    // 三个子路由，顺序匹配，error界面放到最后
-    routes: [homeRouter, pageRouter, errorRouter],
+    // 路由，顺序匹配，error界面放到最后
+    routes: [...appRouters, homeRouter, pageRouter, errorRouter],
 });
 
 router.beforeEach((to, from, next) => {
