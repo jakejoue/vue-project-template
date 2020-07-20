@@ -17,12 +17,18 @@ import './plugins/unWatch.js';
 
 // router
 import router from './router/';
+// store
+import store from './store/';
 
 // 引用组件动态添加删除管理器
 import compManager from './plugins/comp-manager';
-Vue.use(compManager, { router });
+Vue.use(compManager, { router, store });
+
+// 添加全局类名前缀变量
+Vue.prototype.prefixCls = 'geo';
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app');

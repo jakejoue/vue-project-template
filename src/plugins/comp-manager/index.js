@@ -52,6 +52,7 @@ function newInstance(value, optOptions = {}) {
             // 实例化vue组件
             const component = new Vue({
                 ...VUE_CONFIG,
+                ...optOptions,
                 render(h) {
                     return h(value, { ...optOptions });
                 },
@@ -135,6 +136,14 @@ const CompManager = {
     },
     search(value) {
         return searchInstance(value);
+    },
+    checkAdd(value) {
+        const res = this.search(value);
+        if (!res) {
+            return this.add(...arguments);
+        } else {
+            return res;
+        }
     },
     /**
      * 删除全部浮云框

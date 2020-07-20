@@ -282,7 +282,7 @@ vue 提供了一个 `scope` 标签来来进行样式的编写，这是一个能�
 并新增了以下规定：
 
 -   禁用`var`声明变量，变量声明请用`let`或`const`
--   js 变量命名规定必须为`camelcase`风格，`active_index`这种声明方法将不被允许
+-   js 变量命名建议为`camelcase`风格，`active_index`这种声明方法将会进行警告
 -   `debugger，console`会进行警告，调试完模块后请删除相关 debugger 代码
 
 > _下面简单对常用的 es6 语法进行讲解：_

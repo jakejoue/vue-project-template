@@ -4,7 +4,7 @@ import Vue from 'vue';
  * 扩展unWatch属性（声明不需要被vue监听的对象）
  */
 Vue.mixin({
-    beforeCreate: function () {
+    created: function () {
         const list = [this.$options];
         while (list.length) {
             const item = list.shift();

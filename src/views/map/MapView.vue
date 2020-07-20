@@ -1,5 +1,5 @@
 <template>
-    <div class="geo-map">
+    <div :class="prefixCls + '-map'">
         <div id="map"></div>
         <!-- 等待地图加载完毕再加载子组件 -->
         <template v-if="mapInited">
@@ -18,7 +18,7 @@ export default {
     components: { ToolBar },
     // 地图相关的对象不要被监听，会造成性能影响
     unWatch() {
-        return { map: null };
+        return { map: null, draws: {} };
     },
     // 判断地图是否已经初始化
     data() {
@@ -55,11 +55,31 @@ export default {
         this.map.remove();
         delete this.map;
     },
+    methods: {
+        /************ api接口 START ************* */
+        initDraw(key, drawOptions) {
+            if (!this.draws[key]) {
+                this.draws[key] = new MapboxDraw(drawOptions);
+                this.map.addControl(this.draws[key]);
+            }
+            return this.draws[key];
+        },
+        getDraw(key) {
+            return this.draws[key];
+        },
+        removeDraw(key) {
+            if (this.draws[key]) {
+                this.map.removeControl(this.draws[key]);
+                delete this.draws[key];
+            }
+        },
+        /************ api接口 END ************* */
+    },
 };
 </script>
 
 <style lang="less">
-.geo-map,
+.@{prefixCls}-map,
 #map {
     position: absolute;
     width: 100%;

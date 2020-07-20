@@ -10,7 +10,7 @@
     },
     "rules": {
         "prettier/prettier": "error",
-        "camelcase": "error",
+        "camelcase": "warn",
         "no-var": "error",
         "prefer-const": "error",
         "no-console": "warn",
@@ -18,6 +18,8 @@
     },
     "globals": {
         "GeoGlobe": "readonly",
-        "mapboxgl": "readonly"
+        "mapboxgl": "readonly",
+        "MapboxDraw": "readonly",
+        "turf": "readonly"
     }
 }
