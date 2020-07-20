@@ -73,6 +73,7 @@ export default {
     border-radius: 4px;
 
     background-color: @component-background;
+    box-sizing: content-box;
 
     &-close {
         position: absolute;
