@@ -20,7 +20,7 @@ export default {
     inject: ['CONFIG'],
     data() {
         return {
-            navs: this.CONFIG.get('navs'),
+            navs: this.CONFIG['navs'],
             activeName: '',
         };
     },
@@ -28,7 +28,7 @@ export default {
         // 侧边导航
         menus() {
             const navKey = this.$route.meta.navKey;
-            return this.CONFIG.get(navKey);
+            return this.CONFIG[navKey];
         },
     },
     watch: {

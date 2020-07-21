@@ -16,7 +16,7 @@ export default {
     inject: ['CONFIG'],
     data() {
         return {
-            navs: this.CONFIG.get('navs'),
+            navs: this.CONFIG['navs'],
         };
     },
 };

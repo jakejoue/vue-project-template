@@ -10,12 +10,12 @@ export default {
     data() {
         return {
             isInited: false,
-            ConfigMap: new Map(),
+            config: {},
         };
     },
     provide() {
         return {
-            CONFIG: this.ConfigMap,
+            CONFIG: this.config,
         };
     },
     created() {
@@ -23,13 +23,15 @@ export default {
 
         initApplication()
             .then(config => {
-                // 更新配置
                 Object.keys(config).forEach(key => {
-                    this.ConfigMap.set(key, config[key]);
+                    this.config[key] = config[key];
                 });
+                this.isInited = true;
+            })
+            .catch(() => {
+                this.$Message.error('配置读取错误！');
             })
             .finally(() => {
-                this.isInited = true;
                 this.$loading(false);
             });
     },
