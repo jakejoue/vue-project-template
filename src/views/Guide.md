@@ -204,7 +204,7 @@ vue-project-template 内部集成了 `eslint + prettier`
 
 -   **组件的编写顺序**
 
-vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的声明周期顺序进行代码编写，建议顺序如下
+vue 生命周期如下：编写 vue 组件的时候，建议参照 vue 的生命周期顺序进行代码编写，建议顺序如下
 
 -   `name，mixin，components` 等静态配置项
 -   `provide，store` 等对子组件提供数据的配置项
@@ -453,7 +453,7 @@ async function asyncReadFile() {
 
 ## vue 插件开发
 
-想要进行 vue 插件开发，请熟练掌握 vue 的声明周期，并知晓 `mixin` 的相关知识
+想要进行 vue 插件开发，请熟练掌握 vue 的生命周期，并知晓 `mixin` 的相关知识
 
 > _如果想对所有的 vue 对象附加固定的参数或者方法，可以使用以下方法：_
 
