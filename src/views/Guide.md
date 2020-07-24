@@ -8,7 +8,7 @@ vue-project-tmplate 是个 vue 模板项目。它由 vue-cli3 脚手架搭建而
 -   [vue-router](https://router.vuejs.org/zh/) 路由和使用示例
 -   [vuex](https://vuex.vuejs.org/zh/) 状态管理器和使用示例
 -   [iviewUI](https://iviewui.com/docs/introduce) 的集成
--   [Less](https://iviewui.com/docs/introduce) 组件化样式开发示例
+-   [Less](http://lesscss.cn/) 组件化样式开发示例
 -   其他常用工具类的集成等
 
 # 开始
